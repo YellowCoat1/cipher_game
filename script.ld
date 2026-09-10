@@ -1,8 +1,10 @@
 @character chipher "Cipher"
 @portrait chipher assets/cipher.png
+@voice chipher assets/ciphersound.wav
 
 @character evil "Evil Messed Up Cipher"
 @portrait evil assets/evil.png
+@voice evil assets/evilsound.wav
 
 
 chipher: Hello world!

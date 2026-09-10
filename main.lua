@@ -14,7 +14,7 @@ function love.load()
 	})
 
 	dialog.onSignal = function(name, args)
-		if name == "GiveItem" then print ("Got:", args) end
+		if name == "EndDialogue" then love.event.quit() end
 	end
 end
 

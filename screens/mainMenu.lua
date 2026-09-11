@@ -32,6 +32,10 @@ function MainScreen.new()
     function self:update(dt)
 	    if self.fadeOut then
 		    self.fadeOut = self.fadeOut - 1.5 * dt
+		    if self.fadeOut <= 0 and self.fadeOut > -90 then
+			    ScreenManager.publish("mainMenuStart")
+			    self.fadeOut = -100
+		    end
 	    end
     end
     
@@ -39,7 +43,6 @@ function MainScreen.new()
     function self:mousereleased(x, y)
 	    if x > square_dimensions.x and x < square_dimensions.x + square_dimensions.width and
 		    y > square_dimensions.y and y < square_dimensions.y + square_dimensions.height then
-		    print("button pressed!")
 		    self.fadeOut = 1
 	    end
 

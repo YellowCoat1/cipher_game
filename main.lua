@@ -1,7 +1,7 @@
 package.path = "./?.lua" .. ';./' .. "libs" .. '/?.lua'
 
 local LoveDialogue = require("libs.LoveDialogue")
-local ScreenManager = require("libs.ScreenManager")
+ScreenManager = require("libs.ScreenManager")
 
 local dialog
 
@@ -10,9 +10,11 @@ function love.load()
 	local screens = {
 		main = require('screens.mainMenu'),
 		scrollingBG = require('screens.scrollingBG'),
+		manager = require('screens.gameManager')
 	}
 
-	ScreenManager.init(screens, 'scrollingBG')
+	ScreenManager.init(screens, 'manager')
+	ScreenManager.push("scrollingBG")
 	ScreenManager.push("main")
 
 	--dialog = LoveDialogue.play("script.ld", {

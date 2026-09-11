@@ -6,10 +6,13 @@ local ScreenManager = require("libs.ScreenManager")
 local dialog
 
 function love.load()
+
 	local screens = {
-		main = require('screens.mainMenu')
+		main = require('screens.mainMenu'),
+		scrollingBG = require('screens.scrollingBG'),
 	}
-	ScreenManager.init(screens, 'main')
+
+	ScreenManager.init(screens, 'scrollingBG')
 
 	--dialog = LoveDialogue.play("script.ld", {
 	--	boxHeight = 200,
@@ -23,6 +26,8 @@ function love.load()
 	--dialog.onSignal = function(name, args)
 	--	if name == "EndDialogue" then love.event.quit() end
 	--end
+
+	love.graphics.setBackgroundColor(1, 1, 1, 1)
 end
 
 function love.update(dt)

@@ -61,7 +61,6 @@ function scrollingBackground.new()
 			self.xOffset = self.xOffset - 3*sideLength*sin60
 			self.yOffset = self.yOffset - 3*sideLength*cos60
 		end
-		print(self.xOffset, math.sqrt(39)*sideLength)
 	end
 	return self
 end

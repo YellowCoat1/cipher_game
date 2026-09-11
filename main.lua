@@ -13,6 +13,7 @@ function love.load()
 	}
 
 	ScreenManager.init(screens, 'scrollingBG')
+	ScreenManager.push("main")
 
 	--dialog = LoveDialogue.play("script.ld", {
 	--	boxHeight = 200,
@@ -43,4 +44,8 @@ end
 
 function love.keypressed(key)
 	if dialog then dialog:keypressed(key) end
+end
+
+function love.mousereleased(x, y, button)
+	ScreenManager.mousereleased(x, y, button)
 end

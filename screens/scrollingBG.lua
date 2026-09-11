@@ -39,17 +39,29 @@ end
 function scrollingBackground.new()
 	local self = Screen.new()
 
+	self.xOffset = 0
+	self.yOffset = 0
+
 	function self:draw()
 		love.graphics.push()
-		love.graphics.setColor(0.6, 0.6, 0.6, 1)
+		love.graphics.setColor(0.75, 0.75, 0.8, 1)
 		local width, height = love.graphics.getWidth(), love.graphics.getHeight()
-		drawHexGrid(width+5*sideLength, 0, width/(2*sideLength*cos60), height/(2*sideLength*cos60))
+		drawHexGrid(width+5*sideLength+self.xOffset, self.yOffset-100, 5+width/(2*sideLength*cos60), 5+height/(2*sideLength*cos60))
 		love.graphics.pop()
 	end
 
-	function self:update()
-		--y = y + math.sin(90-43.9)
-		--x = x + math.cos(90-43.9)
+	local scrollSpeed = 15
+	local scrollX = sin60
+	local scrollY = cos60
+	function self:update(dt)
+		self.xOffset = self.xOffset + dt*scrollX*scrollSpeed
+		self.yOffset = self.yOffset + dt*scrollY*scrollSpeed
+
+		if self.xOffset > 3*sideLength*sin60 then
+			self.xOffset = self.xOffset - 3*sideLength*sin60
+			self.yOffset = self.yOffset - 3*sideLength*cos60
+		end
+		print(self.xOffset, math.sqrt(39)*sideLength)
 	end
 	return self
 end

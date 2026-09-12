@@ -2,8 +2,10 @@ local Screen = require('screens.Screen')
 
 local game = {}
 
-local ring_png = love.graphics.newImage("assets/ring.png")
+local ring_png = love.graphics.newImage("assets/ring_white.png")
 local ring_width, ring_height = ring_png:getWidth(), ring_png:getHeight()
+
+local coal_color = {64/256, 64/256, 64/256}
 
 local function node(x, y)
 	local node = {}
@@ -12,9 +14,9 @@ local function node(x, y)
 	node.ring1_rotation = 0
 
 	function node:draw()
-		love.graphics.setColor(0.3, 0.3, 0.3)
-		love.graphics.circle("fill", self.x, self.y, 30)
-		local ring_scale = 2
+		love.graphics.setColor(coal_color)
+		love.graphics.circle("fill", self.x, self.y, 45)
+		local ring_scale = 0.5
 		love.graphics.draw(ring_png, self.x, self.y, self.ring1_rotation, ring_scale, ring_scale, ring_width/2, ring_height/2)
 	end
 
@@ -27,7 +29,7 @@ end
 
 function game.new()
 	local self = Screen:new()
-	
+
 	local node1 = node(200, 200)
 
 	function self:draw()

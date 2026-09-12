@@ -4,6 +4,8 @@ local arrow_png = love.graphics.newImage("assets/arrow.png")
 local arrow_width, arrow_height = arrow_png:getWidth(), arrow_png:getHeight()
 
 local coal_color = {64/256, 64/256, 64/256}
+local cipher_main_color = {53/255, 74/255, 255/255}
+local cipher_secondary_color = {107/255, 128/255, 255/255}
 
 local directions = {
 	UP = 1,
@@ -21,6 +23,7 @@ local function node(x, y, alen)
 	node.centerOffsetY = 0
 	node.cooldown_timer = 0
 	node.cooldown_multiplier = 1
+	node.active = false
 
 	local pattern = {}
 	alen = alen or 10
@@ -29,9 +32,16 @@ local function node(x, y, alen)
 	end
 
 	function node:draw()
-		love.graphics.setColor(coal_color)
+		if not self:completed() then
+			love.graphics.setColor(coal_color)
+		else
+			love.graphics.setColor(cipher_main_color)
+		end
 		love.graphics.circle("fill", self.x+self.centerOffsetX, self.y+self.centerOffsetY, 45)
 		local ring_scale = 0.5
+		if self:completed() then
+			love.graphics.setColor(cipher_secondary_color)
+		end
 		love.graphics.draw(ring_png, self.x, self.y, self.ring1_rotation, ring_scale, ring_scale, ring_width/2, ring_height/2)
 		local arrow_direction = pattern[#pattern] or 1
 		local arrow_rotation
@@ -48,13 +58,19 @@ local function node(x, y, alen)
 		if self.cooldown_timer > 0 then
 			love.graphics.setColor(1, 0, 0)
 		end
-		if #pattern >= 1 then
+		if not self:completed() then
 			love.graphics.draw(arrow_png, self.x+self.centerOffsetX, self.y+self.centerOffsetY, arrow_rotation, 0.1, 0.1, arrow_width/2, arrow_height/2)
 		end
 	end
 
 	function node:update(dt)
-		self.ring1_rotation = self.ring1_rotation + 5*dt
+		local ring_speed
+		if node.active then
+			ring_speed = 5
+		else 
+			ring_speed = 1
+		end
+		self.ring1_rotation = self.ring1_rotation + ring_speed*dt
 		self.centerOffsetX = self.centerOffsetX * math.pow(0.5, dt / 0.1)
 		self.centerOffsetY = self.centerOffsetY * math.pow(0.5, dt / 0.1)
 		if self.cooldown_timer > 0 then

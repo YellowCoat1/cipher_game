@@ -8,7 +8,8 @@ function love.load()
 		main = require('screens.mainMenu'),
 		scrollingBG = require('screens.scrollingBG'),
 		manager = require('screens.gameManager'),
-		dialogue = require ('screens.dialogue')
+		dialogue = require ('screens.dialogue'),
+		game = require('screens.game'),
 	}
 
 	ScreenManager.registerCallbacks()

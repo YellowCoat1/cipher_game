@@ -17,7 +17,9 @@ function dialogue.new()
 	})
 
 	dialog_scene.onSignal = function(name, args)
-		if name == "EndDialogue" then love.event.quit() end
+		if name == "EndDialogue" then
+			ScreenManager.publish("dialogueEnd")
+		end
 	end
 
 	function self:draw()

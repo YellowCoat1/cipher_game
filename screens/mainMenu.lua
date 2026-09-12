@@ -43,7 +43,9 @@ function MainScreen.new()
     function self:mousereleased(x, y)
 	    if x > square_dimensions.x and x < square_dimensions.x + square_dimensions.width and
 		    y > square_dimensions.y and y < square_dimensions.y + square_dimensions.height then
+		if not self.fadeOut then
 		    self.fadeOut = 1
+		end
 	    end
 
     end

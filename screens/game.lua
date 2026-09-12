@@ -23,7 +23,8 @@ local function node(x, y, alen)
 	node.ring1_rotation = 0
 	node.centerOffsetX = 0
 	node.centerOffsetY = 0
-
+	node.cooldown_timer = 0
+	node.cooldown_multiplier = 1
 
 	local pattern = {}
 	alen = alen or 10
@@ -48,6 +49,9 @@ local function node(x, y, alen)
 			arrow_rotation = math.rad(0)
 		end
 		love.graphics.setColor(125/256, 230/256, 125/256)
+		if self.cooldown_timer > 0 then
+			love.graphics.setColor(1, 0, 0)
+		end
 		if #pattern >= 1 then
 			love.graphics.draw(arrow_png, self.x+self.centerOffsetX, self.y+self.centerOffsetY, arrow_rotation, 0.1, 0.1, arrow_width/2, arrow_height/2)
 		end
@@ -57,9 +61,15 @@ local function node(x, y, alen)
 		self.ring1_rotation = self.ring1_rotation + 5*dt
 		self.centerOffsetX = self.centerOffsetX * math.pow(0.5, dt / 0.1)
 		self.centerOffsetY = self.centerOffsetY * math.pow(0.5, dt / 0.1)
+		if self.cooldown_timer > 0 then
+			self.cooldown_timer = self.cooldown_timer - dt
+		end
 	end
 
 	function node:keyreleased(key)
+		if self.cooldown_timer > 0 then
+			return
+		end
 		if key == "left" or key == "a" then
 			self:left()
 		elseif key == "right" or key == "d" then
@@ -77,6 +87,8 @@ local function node(x, y, alen)
 			self.centerOffsetX = -offset_amount
 			self.centerOffsetY = 0
 			table.remove(pattern, #pattern)
+		else
+			self:cooldown()
 		end
 	end
 
@@ -85,16 +97,18 @@ local function node(x, y, alen)
 			self.centerOffsetX = offset_amount
 			self.centerOffsetY = 0
 			table.remove(pattern, #pattern)
+		else
+			self:cooldown()
 		end
 	end
 
 	function node:up()
-		print(pattern[#pattern])
 		if pattern[#pattern] == directions.UP then
-			print("up!!!")
 			self.centerOffsetX = 0
 			self.centerOffsetY = -offset_amount
 			table.remove(pattern, #pattern)
+		else
+			self:cooldown()
 		end
 	end
 
@@ -103,7 +117,20 @@ local function node(x, y, alen)
 			self.centerOffsetX = 0
 			self.centerOffsetY = offset_amount
 			table.remove(pattern, #pattern)
+		else
+			self:cooldown()
 		end
+	end
+
+	function node:cooldown()
+		self.cooldown_timer = 0.5 * self.cooldown_multiplier
+		if self.cooldown_multiplier < 3 then
+			self.cooldown_multiplier = self.cooldown_multiplier + 1
+		end
+	end
+
+	function node:completed()
+		return #pattern == 0
 	end
 
 	return node

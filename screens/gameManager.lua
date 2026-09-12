@@ -9,6 +9,7 @@ function gameManager.new()
 	function self:receive(message)
 		if message == "mainMenuStart" then
 			ScreenManager.pop()
+			ScreenManager.push("dialogue")
 		end
 	end
 	return self

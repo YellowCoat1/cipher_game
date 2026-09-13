@@ -126,7 +126,11 @@ end
 function node_list:keypressed(key)
 	if self:completed() then
 		local connections = self:connections_from(self.active_node)
-		if #connections <= 1 then return end
+		if #connections == 1 then
+			connections[1][3] = true
+		elseif #connections <= 0 then
+			return
+		end
 		local selectedInitial = 1
 		for i,connection in ipairs(connections) do
 			if connection[3] then

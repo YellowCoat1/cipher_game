@@ -5,6 +5,21 @@ local sea_mod = require('sea')
 
 local focused_ratio = 2/3 -- where on the screen smth should be
 
+local function initial_nodes(node_list)
+	local node1 = node(0, 0, 3)
+	local node2 = node(-200, -300, 3)
+	local node3 = node(200, -300, 3)
+	local node4 = node(-200, -600, 3)
+	local node5 = node(200, -600, 3)
+	node_list:insert_nodes(node1, node2, node3, node4, node5)
+	node_list:insert_connection(1, 2, false)
+	node_list:insert_connection(1, 3, false)
+	node_list:insert_connection(2, 4, false)
+	node_list:insert_connection(2, 5, false)
+	node_list:insert_connection(3, 5, false)
+	node_list:focused_node(1)
+end
+
 local game = {}
 function game.new()
 	local self = Screen:new()
@@ -16,14 +31,10 @@ function game.new()
 	local sea_increment = 0
 
 	local node_list = require('node_list')
-	local node1 = node(0, 0)
-	local node2 = node(-200, -300)
-	local node3 = node(200, -300)
+	initial_nodes(node_list)
 	cam:lookAt(0, 0)
-	node_list:insert_nodes(node1, node2, node3)
-	node_list:insert_connection(1, 2, false)
-	node_list:insert_connection(1, 3, false)
-	node_list:focused_node(1)
+	
+
 
 	function self:draw()
 		love.graphics.push()

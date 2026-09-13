@@ -12,9 +12,20 @@ function game.new()
 	local node3 = node(2*love.graphics.getWidth()/3, 1*love.graphics.getHeight()/3)
 	node3.active = false
 	local nodes = {node1, node2, node3}
+	local node_connections = {}
+	node_connections[1] = {1, 3}
+
+
+	function self:draw_node_connections()
+		for _, node_connection in ipairs(node_connections) do
+			local nodec1, nodec2 = nodes[node_connection[1]], nodes[node_connection[2]]
+			love.graphics.line(nodec1.x, nodec1.y, nodec2.x, nodec2.y)
+		end
+	end
 
 	function self:draw()
 		love.graphics.push()
+		self:draw_node_connections()
 		for _,single_node in ipairs(nodes) do
 			single_node:draw()
 		end

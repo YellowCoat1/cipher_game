@@ -12,14 +12,14 @@ function game.new()
 
 	local cam = camera.new()
 	local damped = camera.smooth.damped(3)
-	local sea = sea_mod.new()
-
-
+	local sea = sea_mod.new(love.graphics.getHeight()/2)
+	local sea_increment = 0
 
 	local node_list = require('node_list')
-	local node1 = node(love.graphics.getWidth()/2, 2*love.graphics.getHeight()/3)
-	local node2 = node(1*love.graphics.getWidth()/3, 1*love.graphics.getHeight()/3)
-	local node3 = node(2*love.graphics.getWidth()/3, 1*love.graphics.getHeight()/3)
+	local node1 = node(0, 0)
+	local node2 = node(-200, -300)
+	local node3 = node(200, -300)
+	cam:lookAt(0, 0)
 	node_list:insert_nodes(node1, node2, node3)
 	node_list:insert_connection(1, 2, false)
 	node_list:insert_connection(1, 3, false)
@@ -30,8 +30,8 @@ function game.new()
 		cam:attach()
 		node_list:draw()
 		cam:detach()
+		sea:draw(300-cam.y-sea_increment)
 		love.graphics.pop()
-		sea:draw()
 	end
 
 	function self:trailed_x_offset() --calc x offset if the player is deciding the next path
@@ -63,6 +63,7 @@ function game.new()
 		if focused_node then
 			cam:lockPosition(focused_node.x + x_offset, focused_ratio*focused_node.y, damped)
 		end
+		sea_increment = sea_increment + 10*dt
 	end
 
 	function self:keyreleased(key)

@@ -7,9 +7,9 @@ local negative_primary = {148/255,102/255,1/255}
 local negative_secondary = {238/255,226/255,0/255}
 
 
-function sea.new()
+function sea.new(ylevel)
 	local self = {}
-	self.ylevel = love.graphics.getHeight()-50
+	self.ylevel = ylevel or love.graphics.getHeight()-50
 	self.offset = 0
 	function self:draw(yOffset)
 		yOffset = yOffset or 0

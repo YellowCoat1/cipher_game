@@ -98,5 +98,10 @@ function node_list:draw_node_connections()
 	end
 end
 
+function node_list:keyreleased(key)
+	if self.active_node then
+		self.nodes[self.active_node]:keyreleased(key)
+	end
+end
 
 return node_list

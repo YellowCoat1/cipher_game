@@ -54,7 +54,7 @@ function game.new()
 	end
 
 	function self:keyreleased(key)
-		node1:keyreleased(key)
+		node_list:keyreleased(key)
 	end
 	return self
 end

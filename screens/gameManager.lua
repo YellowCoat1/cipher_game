@@ -9,8 +9,12 @@ function gameManager.new()
 	function self:receive(message)
 		if message == "mainMenuStart" then
 			ScreenManager.pop()
-			ScreenManager.push("game")
-			ScreenManager.push("transition_in")
+			if love.keyboard.isDown("p") then
+				ScreenManager.push("game")
+				ScreenManager.push("transition_in")
+			else
+				ScreenManager.push("tutorial")
+			end
 		elseif message == "tutorialEnd" then
 			ScreenManager.push("transition_out")
 		elseif message == "transition_done" then

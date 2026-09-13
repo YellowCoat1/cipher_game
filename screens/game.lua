@@ -5,37 +5,22 @@ local game = {}
 function game.new()
 	local self = Screen:new()
 
+	local node_list = require('node_list')
 	local node1 = node(love.graphics.getWidth()/2, 2*love.graphics.getHeight()/3)
-	node1.active = true
 	local node2 = node(1*love.graphics.getWidth()/3, 1*love.graphics.getHeight()/3)
-	node2.active = false
 	local node3 = node(2*love.graphics.getWidth()/3, 1*love.graphics.getHeight()/3)
-	node3.active = false
-	local nodes = {node1, node2, node3}
-	local node_connections = {}
-	node_connections[1] = {1, 3}
-
-
-	function self:draw_node_connections()
-		for _, node_connection in ipairs(node_connections) do
-			local nodec1, nodec2 = nodes[node_connection[1]], nodes[node_connection[2]]
-			love.graphics.line(nodec1.x, nodec1.y, nodec2.x, nodec2.y)
-		end
-	end
+	node_list:insert_nodes(node1, node2, node3)
+	node_list:insert_connection(1, 3)
+	node_list:focused_node(1)
 
 	function self:draw()
 		love.graphics.push()
-		self:draw_node_connections()
-		for _,single_node in ipairs(nodes) do
-			single_node:draw()
-		end
+		node_list:draw()
 		love.graphics.pop()
 	end
 
 	function self:update(dt)
-		for _,single_node in ipairs(nodes) do
-			single_node:update(dt)
-		end
+		node_list:update(dt)
 	end
 
 	function self:keyreleased(key)

@@ -78,7 +78,15 @@ function game.new()
 		if focused_node then
 			cam:lockPosition(focused_node.x + x_offset, focused_node.y, damped)
 		end
-		sea_increment = sea_increment + 10*dt
+
+		if not focused_node then return end
+		local sea_increment_change = (10*(1+math.floor(-focused_node.y/300))*dt)
+		sea_increment = sea_increment + sea_increment_change
+
+		if -focused_node.y > sea_increment + 300 then
+			sea_increment = sea_increment + sea_increment_change
+		end
+
 	end
 
 	function self:keyreleased(key)

@@ -57,7 +57,6 @@ function tutorial.new()
 				min_timer = 1
 			end
 			sea.ylevel = smoothLerp(love.graphics.getHeight()+10, love.graphics.getHeight()-200, min_timer)
-			print(min_timer)
 
 			if rising_sea_timer > 1 and rising_sea_timer < 100 then
 				self:tut3Start()
@@ -100,11 +99,6 @@ function tutorial.new()
 			borderColor = {1, 1, 1, 1},
 			borderWidth = 3
 		})
-		self.dialog_scene2.onSignal = function(name, _)
-			if name == "Tut3End" then
-				print("owo")
-			end
-		end
 	end
 
 

@@ -1,5 +1,6 @@
 local Screen = require('screens.Screen')
 local node = require('node')
+local camera = require 'camera'
 
 local game = {}
 function game.new()

@@ -14,12 +14,12 @@ local directions = {
 	RIGHT = 4,
 }
 
-local function lerp(start, endt, t)
+function Lerp(start, endt, t)
 	return start * (1-t) + endt * t
 end
 
 local function lerpColor(startc, endc, t)
-	return {lerp(startc[1], endc[1], t), lerp(startc[2], endc[2], t), lerp(startc[3], endc[3], t)}
+	return {Lerp(startc[1], endc[1], t), Lerp(startc[2], endc[2], t), Lerp(startc[3], endc[3], t)}
 end
 
 local function node(x, y, alen)

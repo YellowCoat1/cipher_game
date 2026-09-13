@@ -61,6 +61,10 @@ function game.new()
 	function self:keyreleased(key)
 		node_list:keyreleased(key)
 	end
+
+	function self:keypressed(key)
+		node_list:keypressed(key)
+	end
 	return self
 end
 

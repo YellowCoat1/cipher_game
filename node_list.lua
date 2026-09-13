@@ -102,6 +102,29 @@ function node_list:keyreleased(key)
 	if self.active_node then
 		self.nodes[self.active_node]:keyreleased(key)
 	end
+	
+end
+
+function node_list:keypressed(key)
+	if self:completed() then
+		local connections = self:connections_from(self.active_node)
+		if #connections <= 1 then return end
+		local selectedInitial = 1
+		for i,connection in ipairs(connections) do
+			if connection[3] then
+				selectedInitial = i
+			end
+		end
+		local selected = selectedInitial
+		if key == "left" or key == "a" then
+			selected = math.max(1, selectedInitial-1)
+		elseif key == "right" or key == "d" then
+			selected = math.min(selectedInitial+1, #connections)
+		end
+
+		connections[selectedInitial][3] = false
+		connections[selected][3] = true
+	end
 end
 
 return node_list

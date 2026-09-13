@@ -12,6 +12,11 @@ function gameManager.new()
 			ScreenManager.push("tutorial")
 		elseif message == "tutorialEnd" then
 			ScreenManager.push("transition_out")
+		elseif message == "transition_done" then
+			ScreenManager.pop()
+			ScreenManager.pop()
+			ScreenManager.push("game")
+			ScreenManager.push("transition_in")
 		end
 	end
 	return self

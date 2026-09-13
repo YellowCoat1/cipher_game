@@ -12,8 +12,8 @@ function transition_out.new()
 	function self:update(dt)
 		self.darknessPercent = self.darknessPercent + (1/transition_seconds)*dt
 		if self.darknessPercent >= 1 and not transition_done then
-			ScreenManager.publish("transition_done")
 			transition_done = true
+			ScreenManager.pop()
 		end
 	end
 

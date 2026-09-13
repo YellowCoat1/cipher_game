@@ -10,6 +10,8 @@ function gameManager.new()
 		if message == "mainMenuStart" then
 			ScreenManager.pop()
 			ScreenManager.push("tutorial")
+		elseif message == "tutoralEnd" then
+
 		end
 	end
 	return self

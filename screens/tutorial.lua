@@ -32,7 +32,6 @@ function tutorial.new()
 
 	function self:draw()
 		if self.dialog_scene then self.dialog_scene:draw() end
-		if self.dialog_scene2 then self.dialog_scene2:draw() end
 		if self.node then self.node:draw() end
 		sea:draw()
 	end
@@ -40,7 +39,6 @@ function tutorial.new()
 	function self:update(dt)
 		sea:update(dt)
 		if self.dialog_scene then self.dialog_scene:update(dt) end
-		if self.dialog_scene2 then self.dialog_scene2:update(dt) end
 
 
 		if self.node then
@@ -69,7 +67,6 @@ function tutorial.new()
 	end
 	function self:keypressed(key)
 		if self.dialog_scene then self.dialog_scene:keypressed(key) end
-		if self.dialog_scene2 then self.dialog_scene2:keypressed(key) end
 	end
 	function self:keyreleased(key)
 		if self.node then self.node:keyreleased(key) end
@@ -92,8 +89,7 @@ function tutorial.new()
 	end
 
 	function self:tut3Start()
-		collectgarbage("collect")
-		self.dialog_scene2 = loveDialogue.play("scripts/tut3.ld", {
+		self.dialog_scene = loveDialogue.play("scripts/tut3.ld", {
 			boxHeight = 200,
 			boxWidth = 800,
 			centerBox = true,

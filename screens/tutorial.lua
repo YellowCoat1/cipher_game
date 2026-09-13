@@ -28,6 +28,7 @@ function tutorial.new()
 	local rising_sea_timer
 	sea.ylevel = love.graphics.getHeight() + 50
 	self.rising_sea_timer = nil
+	self.node_completed = false
 
 	function self:draw()
 		if self.dialog_scene then self.dialog_scene:draw() end
@@ -41,11 +42,12 @@ function tutorial.new()
 		if self.dialog_scene then self.dialog_scene:update(dt) end
 		if self.dialog_scene2 then self.dialog_scene2:update(dt) end
 
+
 		if self.node then
 			self.node:update(dt)
-			if self.node.completed_timer >= 1 then
-				self.node = nil
+			if self.node.completed_timer >= 1 and self.node_completed == false then
 				self:tut2Start()
+				self.node_completed = true
 			end
 		end
 

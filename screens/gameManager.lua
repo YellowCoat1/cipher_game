@@ -9,9 +9,6 @@ function gameManager.new()
 	function self:receive(message)
 		if message == "mainMenuStart" then
 			ScreenManager.pop()
-			ScreenManager.push("dialogue")
-		elseif message == "dialogueEnd" then
-			ScreenManager.pop()
 			ScreenManager.push("tutorial")
 		end
 	end

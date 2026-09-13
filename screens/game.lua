@@ -4,8 +4,6 @@ local camera = require 'libs.camera'
 local sea_mod = require('sea')
 local node_procedural = require 'node_proceduaral'
 
-local focused_ratio = 2/3 -- where on the screen smth should be
-
 local function initial_nodes(node_list)
 	local node1 = node(0, 0, 3)
 	local node2 = node(-200, -300, 3)
@@ -30,6 +28,7 @@ function game.new()
 	local damped = camera.smooth.damped(3)
 	local sea = sea_mod.new(love.graphics.getHeight()/2)
 	local sea_increment = 0
+	local dead = false
 
 	local node_list = require('node_list')
 	initial_nodes(node_list)
@@ -69,6 +68,7 @@ function game.new()
 	function self:update(dt)
 		node_list:update(dt)
 		if ScreenManager.peek().name ~= "game" then return end
+		if dead then return end
 		sea:update(dt)
 		local focused_node = node_list:get_focused_node()
 		local x_offset = 0
@@ -83,8 +83,13 @@ function game.new()
 		local sea_increment_change = (10*(1+math.floor(-focused_node.y/300))*dt)
 		sea_increment = sea_increment + sea_increment_change
 
-		if -focused_node.y > sea_increment + 300 then
-			sea_increment = sea_increment + sea_increment_change
+		if -focused_node.y > sea_increment + 300 then -- boost
+			sea_increment = sea_increment + sea_increment_change + 20*dt
+		end
+
+		if sea_increment  > -focused_node.y + 300 and not dead then
+			dead = true
+			ScreenManager.publish('died :(')
 		end
 
 	end

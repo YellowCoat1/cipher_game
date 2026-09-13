@@ -25,7 +25,7 @@ function sea.new(ylevel)
 			love.graphics.line(i*(line_len+space_len)+self.offset, self.ylevel+yOffset, i*(line_len+space_len)+line_len+self.offset, self.ylevel+yOffset)
 		end
 		love.graphics.setColor(negative_secondary[1], negative_secondary[2], negative_secondary[3], 0.4)
-		love.graphics.rectangle("fill", 0, self.ylevel+yOffset, width, 10+height-self.ylevel)
+		love.graphics.rectangle("fill", 0, self.ylevel+yOffset, width, height)
 	end
 	function self:update(dt)
 		self.offset = self.offset + 100*dt

@@ -27,6 +27,8 @@ function gameManager.new()
 			ScreenManager.push("final_tutorial")
 		elseif message == "final_tutorial_end" then
 			ScreenManager.pop()
+		elseif message == "died :(" then
+			print("died")
 		end
 	end
 	return self

@@ -7,14 +7,7 @@ function dialogue.new()
 
 	local self = Screen:new()
 
-	local dialog_scene = loveDialogue.play("scripts/script.ld", {
-		boxHeight = 200,
-		boxWidth = 800,
-		centerBox = true,
-		boxColor = {0, 0, 0, 1},
-		borderColor = {1, 1, 1, 1},
-		borderWidth = 3
-	})
+	local dialog_scene = loveDialogue.play("scripts/script.ld", DialogueConfig)
 
 	dialog_scene.onSignal = function(name, args)
 		if name == "EndDialogue" then

@@ -2,6 +2,15 @@ package.path = "./?.lua" .. ';./' .. "libs" .. '/?.lua'
 
 ScreenManager = require("libs.ScreenManager")
 
+DialogueConfig = {
+	boxHeight = 200,
+	boxWidth = 800,
+	centerBox = true,
+	boxColor = {0, 0, 0, 1},
+	borderColor = {1, 1, 1, 1},
+	borderWidth = 3
+}
+
 function love.load()
 
 	local screens = {
@@ -10,6 +19,7 @@ function love.load()
 		manager = require('screens.gameManager'),
 		dialogue = require ('screens.dialogue'),
 		game = require('screens.game'),
+		tutorial = require('screens.tutorial'),
 	}
 
 	ScreenManager.registerCallbacks()

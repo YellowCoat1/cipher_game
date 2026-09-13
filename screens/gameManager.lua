@@ -12,7 +12,7 @@ function gameManager.new()
 			ScreenManager.push("dialogue")
 		elseif message == "dialogueEnd" then
 			ScreenManager.pop()
-			ScreenManager.push("game")
+			ScreenManager.push("tutorial")
 		end
 	end
 	return self

@@ -13,5 +13,4 @@ chipher: im just gonna hop nodes outta here
 evil: too bad that my EVIL hacker juice of EVIL can flood the system
 chipher: what if i just. run faster
 evil: damn, never thought of that
-evil: aight im getting ur ass
 [signal: Tut3End]

@@ -1,5 +1,3 @@
-package.path = "./?.lua" .. ';./' .. "libs" .. '/?.lua'
-
 ScreenManager = require("libs.ScreenManager")
 
 DialogueConfig = {

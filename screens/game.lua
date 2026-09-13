@@ -1,6 +1,6 @@
 local Screen = require('screens.Screen')
 local node = require('node')
-local camera = require 'camera'
+local camera = require 'libs.camera'
 
 local focused_ratio = 2/3 -- where on the screen smth should be
 

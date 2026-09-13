@@ -23,6 +23,11 @@ function node_list:focused_node(index)
 	self.nodes[index].active = true
 end
 
+function node_list:get_focused_node()
+	if not self.active_node then return nil end
+	return self.nodes[self.active_node]
+end
+
 function node_list:completed()
 	if self.active_node then
 		if self.nodes[self.active_node]:completed() then

@@ -14,6 +14,14 @@ local directions = {
 	RIGHT = 4,
 }
 
+local function lerp(start, endt, t)
+	return start * (1-t) + endt * t
+end
+
+local function lerpColor(startc, endc, t)
+	return {lerp(startc[1], endc[1], t), lerp(startc[2], endc[2], t), lerp(startc[3], endc[3], t)}
+end
+
 local function node(x, y, alen)
 	local node = {}
 	node.x = x or 100
@@ -24,9 +32,11 @@ local function node(x, y, alen)
 	node.cooldown_timer = 0
 	node.cooldown_multiplier = 1
 	node.active = false
+	node.completed_timer = 0
+
 
 	local pattern = {}
-	alen = alen or 10
+	alen = alen or 1
 	for _=1, alen do
 		table.insert(pattern, math.random(1, 4))
 	end
@@ -35,12 +45,12 @@ local function node(x, y, alen)
 		if not self:completed() then
 			love.graphics.setColor(coal_color)
 		else
-			love.graphics.setColor(cipher_main_color)
+			love.graphics.setColor(lerpColor(coal_color, cipher_main_color, self.completed_timer))
 		end
 		love.graphics.circle("fill", self.x+self.centerOffsetX, self.y+self.centerOffsetY, 45)
 		local ring_scale = 0.5
 		if self:completed() then
-			love.graphics.setColor(cipher_secondary_color)
+			love.graphics.setColor(lerpColor(coal_color, cipher_secondary_color, self.completed_timer))
 		end
 		love.graphics.draw(ring_png, self.x, self.y, self.ring1_rotation, ring_scale, ring_scale, ring_width/2, ring_height/2)
 		local arrow_direction = pattern[#pattern] or 1
@@ -75,6 +85,13 @@ local function node(x, y, alen)
 		self.centerOffsetY = self.centerOffsetY * math.pow(0.5, dt / 0.1)
 		if self.cooldown_timer > 0 then
 			self.cooldown_timer = self.cooldown_timer - dt
+		end
+
+		if self:completed() and self.completed_timer < 1 then
+			self.completed_timer = self.completed_timer + 2 * dt
+		end
+		if self.completed_timer > 1 then
+			self.completed_timer = 1
 		end
 	end
 

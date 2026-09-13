@@ -10,6 +10,8 @@ function game.new()
 
 	local cam = camera.new()
 	local damped = camera.smooth.damped(3)
+	
+	local sea = require('sea')
 
 
 	local node_list = require('node_list')
@@ -27,6 +29,7 @@ function game.new()
 		node_list:draw()
 		cam:detach()
 		love.graphics.pop()
+		sea:draw()
 	end
 
 	function self:trailed_x_offset() --calc x offset if the player is deciding the next path
@@ -48,6 +51,7 @@ function game.new()
 
 	function self:update(dt)
 		node_list:update(dt)
+		sea:update(dt)
 		local focused_node = node_list:get_focused_node()
 		local x_offset = 0
 		if node_list:completed() then

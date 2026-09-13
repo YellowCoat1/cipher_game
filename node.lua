@@ -36,7 +36,7 @@ local function node(x, y, alen)
 
 
 	local pattern = {}
-	alen = alen or 1
+	alen = alen or 10
 	for _=1, alen do
 		table.insert(pattern, math.random(1, 4))
 	end

@@ -76,7 +76,7 @@ function game.new()
 			x_offset = self:trailed_x_offset()
 		end
 		if focused_node then
-			cam:lockPosition(focused_node.x + x_offset, focused_ratio*focused_node.y, damped)
+			cam:lockPosition(focused_node.x + x_offset, focused_node.y, damped)
 		end
 		sea_increment = sea_increment + 10*dt
 	end

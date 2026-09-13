@@ -99,10 +99,27 @@ function node_list:draw_node_connections()
 end
 
 function node_list:keyreleased(key)
+	if key == "space" then
+		if self:completed() then
+			local connections = self:connections_from(self.active_node)
+			if #connections >= 1 then
+				local selected
+				for i,connection in ipairs(connections) do 
+					if connection[3] then
+						selected = i
+					end
+				end
+				if selected then
+					local selected_target = connections[selected][2]
+					self:focused_node(selected_target)
+				end
+			end
+		end
+	end
+
 	if self.active_node then
 		self.nodes[self.active_node]:keyreleased(key)
 	end
-	
 end
 
 function node_list:keypressed(key)

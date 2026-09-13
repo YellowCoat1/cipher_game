@@ -18,7 +18,7 @@ function game.new()
 	local node3 = node(2*love.graphics.getWidth()/3, 1*love.graphics.getHeight()/3)
 	node_list:insert_nodes(node1, node2, node3)
 	node_list:insert_connection(1, 2, false)
-	node_list:insert_connection(1, 3, true)
+	node_list:insert_connection(1, 3, false)
 	node_list:focused_node(1)
 
 	function self:draw()
@@ -32,13 +32,13 @@ function game.new()
 	function self:trailed_x_offset() --calc x offset if the player is deciding the next path
 		local connections = node_list:connections_from(node_list.active_node)
 		local total = #connections
-		local selected = 1
+		local selected
 		for i,connection in ipairs(connections) do
 			if connection[3] then
 				selected=i
 			end
 		end
-		if total > 1 then
+		if total > 1 and selected  then
 			return Lerp(-50, 50, (selected-1)/(total-1))
 		else
 			return 0

@@ -23,13 +23,27 @@ function love.load()
 		death = require('screens.death'),
 	}
 
-	ScreenManager.registerCallbacks()
 	ScreenManager.init(screens, 'manager')
 	ScreenManager.push("scrollingBG")
 	ScreenManager.push("main")
 	love.graphics.setBackgroundColor(1, 1, 1, 1)
 end
 
-function love.update()
-	--print(ScreenManager.peek().name)
+function love.draw()
+	ScreenManager.draw()
+end
+
+function love.keypressed(key)
+	ScreenManager.keypressed(key)
+end
+
+function love.keyreleased(key)
+	ScreenManager.keyreleased(key)
+end
+
+function love.mousereleased(x, y, button)
+	ScreenManager.mousereleased(x, y, button)
+end
+function love.update(dt)
+	ScreenManager.update(dt)
 end

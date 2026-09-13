@@ -7,6 +7,7 @@ local focused_ratio = 2/3 -- where on the screen smth should be
 local game = {}
 function game.new()
 	local self = Screen:new()
+	self.name = "game"
 
 	local cam = camera.new()
 	local damped = camera.smooth.damped(3)
@@ -51,6 +52,7 @@ function game.new()
 
 	function self:update(dt)
 		node_list:update(dt)
+		if ScreenManager.peek().name ~= "game" then return end
 		sea:update(dt)
 		local focused_node = node_list:get_focused_node()
 		local x_offset = 0

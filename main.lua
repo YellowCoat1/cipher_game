@@ -19,6 +19,7 @@ function love.load()
 		tutorial = require('screens.tutorial'),
 		transition_out = require('screens.transition_out'),
 		transition_in = require('screens.transition_in'),
+		final_tutorial = require('screens.final_tutorial'),
 	}
 
 	ScreenManager.registerCallbacks()
@@ -28,3 +29,6 @@ function love.load()
 	love.graphics.setBackgroundColor(1, 1, 1, 1)
 end
 
+function love.update()
+	--print(ScreenManager.peek().name)
+end

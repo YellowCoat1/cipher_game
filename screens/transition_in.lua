@@ -5,6 +5,7 @@ local transition_in = {}
 
 function transition_in.new()
 	local self = Screen:new()
+	self.name = "Transition In"
 	self.darknessPercent = 1
 	local transition_done = false
 	local transition_seconds = 3
@@ -13,7 +14,6 @@ function transition_in.new()
 		self.darknessPercent = self.darknessPercent - (1/transition_seconds)*dt
 		if self.darknessPercent <= 0 and not transition_done then
 			ScreenManager.publish("transition_in_done")
-			ScreenManager.pop()
 			transition_done = true
 		end
 	end

@@ -16,6 +16,7 @@ local lynx_width, lynx_height = lynx:getWidth(), lynx:getHeight()
 
 function MainScreen.new()
     local self = Screen.new()
+    self.name = "main menu"
 
     self.fadeOut = nil
 

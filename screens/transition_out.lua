@@ -6,6 +6,7 @@ local transition_out = {}
 function transition_out.new()
 	local self = Screen:new()
 	self.darknessPercent = 0
+	self.name = "Transition Out"
 	local transition_done = false
 	local transition_seconds = 3
 

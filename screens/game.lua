@@ -1,6 +1,7 @@
 local Screen = require('screens.Screen')
 local node = require('node')
 local camera = require 'libs.camera'
+local sea_mod = require('sea')
 
 local focused_ratio = 2/3 -- where on the screen smth should be
 
@@ -11,8 +12,8 @@ function game.new()
 
 	local cam = camera.new()
 	local damped = camera.smooth.damped(3)
+	local sea = sea_mod.new()
 
-	local sea = require('sea')
 
 
 	local node_list = require('node_list')

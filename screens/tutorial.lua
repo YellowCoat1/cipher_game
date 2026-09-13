@@ -1,6 +1,7 @@
 local Screen = require('screens.Screen')
 local loveDialogue = require('libs.LoveDialogue')
 local node = require('node')
+local sea_mod = require("sea")
 
 local tutorial = {}
 
@@ -24,7 +25,7 @@ function tutorial.new()
 			self:tut1End()
 		end
 	end
-	local sea = require("sea")
+	local sea = sea_mod.new()
 	local rising_sea_timer
 	sea.ylevel = love.graphics.getHeight() + 50
 	self.rising_sea_timer = nil

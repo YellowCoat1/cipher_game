@@ -7,7 +7,7 @@ function dialogue.new()
 
 	local self = Screen:new()
 
-	local dialog_scene = loveDialogue.play("script.ld", {
+	local dialog_scene = loveDialogue.play("scripts/script.ld", {
 		boxHeight = 200,
 		boxWidth = 800,
 		centerBox = true,

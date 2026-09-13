@@ -10,7 +10,7 @@ function game.new()
 
 	local cam = camera.new()
 	local damped = camera.smooth.damped(3)
-	
+
 	local sea = require('sea')
 
 

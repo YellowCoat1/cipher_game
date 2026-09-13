@@ -17,6 +17,7 @@ function love.load()
 		manager = require('screens.gameManager'),
 		game = require('screens.game'),
 		tutorial = require('screens.tutorial'),
+		transition_out = require('screens.transition_out'),
 	}
 
 	ScreenManager.registerCallbacks()

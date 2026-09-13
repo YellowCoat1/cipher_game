@@ -97,6 +97,12 @@ function tutorial.new()
 			borderColor = {1, 1, 1, 1},
 			borderWidth = 3
 		})
+
+		self.dialog_scene.onSignal = function(name, _)
+			if name == "Tut3End" then
+				ScreenManager.publish("tutorialEnd")
+			end
+		end
 	end
 
 

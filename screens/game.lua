@@ -29,24 +29,29 @@ function game.new()
 		love.graphics.pop()
 	end
 
+	function self:trailed_x_offset() --calc x offset if the player is deciding the next path
+		local connections = node_list:connections_from(node_list.active_node)
+		local total = #connections
+		local selected = 1
+		for i,connection in ipairs(connections) do
+			if connection[3] then
+				selected=i
+			end
+		end
+		if total > 1 then
+			return Lerp(-50, 50, (selected-1)/(total-1))
+		else
+			return 0
+		end
+
+	end
+
 	function self:update(dt)
 		node_list:update(dt)
 		local focused_node = node_list:get_focused_node()
 		local x_offset = 0
 		if node_list:completed() then
-			local connections = node_list:connections_from(node_list.active_node)
-			local total = #connections
-			local selected = 1
-			for i,connection in ipairs(connections) do
-				if connection[3] then
-					selected=i
-				end
-			end
-			if total > 1 then
-				x_offset = Lerp(-50, 50, (selected-1)/(total-1))
-			else
-				x_offset = 0
-			end
+			x_offset = self:trailed_x_offset()
 		end
 		if focused_node then
 			cam:lockPosition(focused_node.x + x_offset, focused_ratio*focused_node.y, damped)

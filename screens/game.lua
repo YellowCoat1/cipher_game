@@ -2,6 +2,7 @@ local Screen = require('screens.Screen')
 local node = require('node')
 local camera = require 'libs.camera'
 local sea_mod = require('sea')
+local node_procedural = require 'node_proceduaral'
 
 local focused_ratio = 2/3 -- where on the screen smth should be
 
@@ -33,7 +34,10 @@ function game.new()
 	local node_list = require('node_list')
 	initial_nodes(node_list)
 	cam:lookAt(0, 0)
-	
+
+	node_list.jumpCallback = function(node_list_arg)
+		node_procedural.genNext(node_list_arg)
+	end
 
 
 	function self:draw()

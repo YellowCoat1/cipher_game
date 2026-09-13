@@ -104,7 +104,7 @@ function node_list:keyreleased(key)
 			local connections = self:connections_from(self.active_node)
 			if #connections >= 1 then
 				local selected
-				for i,connection in ipairs(connections) do 
+				for i,connection in ipairs(connections) do
 					if connection[3] then
 						selected = i
 					end
@@ -112,6 +112,7 @@ function node_list:keyreleased(key)
 				if selected then
 					local selected_target = connections[selected][2]
 					self:focused_node(selected_target)
+					self:jumpCallback()
 				end
 			end
 		end
@@ -142,6 +143,10 @@ function node_list:keypressed(key)
 		connections[selectedInitial][3] = false
 		connections[selected][3] = true
 	end
+end
+
+function node_list:jumpCallback() -- function stub
+
 end
 
 return node_list

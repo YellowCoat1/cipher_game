@@ -31,6 +31,8 @@ function game.new()
 	local dead = false
 	local game_active_timer = 0
 	local font = love.graphics.newFont(32)
+	local music = love.audio.newSource("assets/Serge Quadrado - Technocrat.mp3", "stream")
+	music:play()
 
 	local node_list = require('node_list').new()
 	initial_nodes(node_list)
@@ -119,6 +121,10 @@ function game.new()
 			ScreenManager.publish('died :(')
 		end
 
+	end
+
+	function self:close()
+		music:stop()
 	end
 
 	function self:keyreleased(key)

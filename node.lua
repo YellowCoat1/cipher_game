@@ -38,6 +38,7 @@ local function node(x, y, alen)
 
 	local hit_sound = love.audio.newSource("assets/hit.wav", "static")
 	local takeover_sound = love.audio.newSource('assets/takeover.wav', "static")
+	local wrong_sound = love.audio.newSource('assets/wrong.wav', "static")
 
 
 	local pattern = {}
@@ -169,6 +170,8 @@ local function node(x, y, alen)
 	end
 
 	function node:cooldown()
+		if node:completed() then return end
+		wrong_sound:play()
 		self.cooldown_timer = 0.5 * self.cooldown_multiplier
 		if self.cooldown_multiplier < 3 then
 			self.cooldown_multiplier = self.cooldown_multiplier + 1

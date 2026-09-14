@@ -2,6 +2,7 @@ local node = require 'node'
 local node_procedural = {}
 
 function node_procedural.genNext(node_list)
+
 	local initial_node_list_num = #node_list.nodes
 	local latest_y = node_list.nodes[#node_list.nodes].y
 	local top_row_indexes = {}
@@ -119,26 +120,35 @@ function node_procedural.genNext(node_list)
 
 	-- remove every new node without an edge to it
 	local connected_node = {}
+	local num_to_remove = 0
 	local nodes_to_remove = {}
 	for _,edge in ipairs(edge_lists) do
 		connected_node[edge[2]] = true
 	end
-	for node_index,val in ipairs(connected_node) do
-		if node_index and not val then
-			table.insert(nodes_to_remove, node_index)
+	for i=1,num_next do
+		if not connected_node[i] then
+			num_to_remove = num_to_remove + 1
+			table.insert(nodes_to_remove, i)
 		end
 	end
-	--table.sort(nodes_to_remove)
-	--for i=#nodes_to_remove,1,-1 do
-	--	local node_to_remove = nodes_to_remove[i]
-	--	for _,edge in ipairs(edge_lists) do
-	--		if edge[2] > node_to_remove then
-	--			edge[2] = edge[2] - 1
-	--		end
-	--	end
-	--	num_next = num_next - 1
+	table.sort(nodes_to_remove)
+	for i=#nodes_to_remove,1,-1 do
+		local node_to_remove = nodes_to_remove[i]
+		for _,edge in ipairs(edge_lists) do
+			if edge[2] > node_to_remove then
+				edge[2] = edge[2] - 1
+			end
+		end
+		for j,v in pairs(selected_x_vals) do
+			if v > node_to_remove then
+				selected_x_vals[j] = v-1
+			elseif v == node_to_remove then
+				selected_x_vals[j] = nil
+			end
+		end
+		num_next = num_next - 1
 
-	--end
+	end
 
 
 	-- make a new list sorted by node index
@@ -146,9 +156,7 @@ function node_procedural.genNext(node_list)
 	-- add new nodes
 	local node_list_len = #node_list.nodes
 	for x_val,node_index in pairs(selected_x_vals) do
-		if connected_node[node_index] then
-			node_list.nodes[node_index+node_list_len] = node(tonumber(x_val), latest_y-300, 3)
-		end
+		node_list.nodes[node_index+node_list_len] = node(tonumber(x_val), latest_y-300, 3)
 	end
 
 

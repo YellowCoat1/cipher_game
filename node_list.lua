@@ -139,27 +139,34 @@ function node_list.new()
 
 	function self:keypressed(key)
 		if self:completed() then
-			local connections = self:connections_from(self.active_node)
+			local connections, selected = self:selected_edge()
+			if not connections then return end
+
 			if #connections == 1 then
 				connections[1][3] = true
 			elseif #connections <= 0 then
 				return
 			end
-			local selectedInitial = 1
-			for i,connection in ipairs(connections) do
-				if connection[3] then
-					selectedInitial = i
+
+			local selectedNew = selected
+			if key == "left" or key == "a" then
+				if selected then
+					selectedNew = math.max(1, selected-1)
+				else
+					selectedNew = 1
+				end
+			elseif key == "right" or key == "d" then
+				if selected then
+					selectedNew = math.min(selected+1, #connections)
+				else
+					selectedNew = #connections
 				end
 			end
-			local selected = selectedInitial
-			if key == "left" or key == "a" then
-				selected = math.max(1, selectedInitial-1)
-			elseif key == "right" or key == "d" then
-				selected = math.min(selectedInitial+1, #connections)
-			end
 
-			connections[selectedInitial][3] = false
-			connections[selected][3] = true
+			if selected then
+				connections[selected][3] = false
+			end
+			connections[selectedNew][3] = true
 		end
 	end
 

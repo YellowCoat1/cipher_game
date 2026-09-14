@@ -16,9 +16,6 @@ function death.new()
 	local cipher_width, cipher_height = cipher_ded:getWidth(), cipher_ded:getHeight()
 	local evil_glad = love.graphics.newImage('assets/evil_glad.png')
 	local evil_width, evil_height = evil_glad:getWidth(), evil_glad:getHeight()
-	local button = love.graphics.newImage('assets/button.png')
-	local button_pressed = love.graphics.newImage('assets/button_pressed.png')
-	local button_width, button_height = button:getWidth(), button:getHeight()
 
 	function self:draw()
 		local width, height = love.graphics.getDimensions()
@@ -56,6 +53,10 @@ function death.new()
 		death_timer = math.min(death_timer_max, death_timer + dt*(1))
 	end
 
+
+	function self:mousepressed(button)
+
+	end
 
 	return self
 end

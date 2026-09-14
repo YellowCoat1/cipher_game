@@ -108,8 +108,6 @@ function node_procedural.genNext(node_list)
 			local connecting_part = math.random(1, #connecting_top_nodes)
 			local connecting_part_node = table.remove(connecting_top_nodes, connecting_part)
 			table.insert(edge_lists, {top_node, connecting_part_node})
-		else
-			print("stranded node!")
 		end
 
 

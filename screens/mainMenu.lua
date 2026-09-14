@@ -50,7 +50,7 @@ function MainScreen.new()
 	    end
 	    self.lynx_rotation = self.lynx_rotation + 5*dt
     end
-    
+
 
     function self:mousereleased(x, y)
 	    if x > square_dimensions.x and x < square_dimensions.x + square_dimensions.width and

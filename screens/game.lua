@@ -30,6 +30,7 @@ function game.new()
 	local sea_increment = 0
 	local dead = false
 	local game_active_timer = 0
+	local font = love.graphics.newFont(32)
 
 	local node_list = require('node_list').new()
 	initial_nodes(node_list)
@@ -46,6 +47,21 @@ function game.new()
 		node_list:draw()
 		cam:detach()
 		sea:draw(300-cam.y-sea_increment)
+		local width = love.graphics.getWidth()
+
+		local box_width, box_height = 130, 40
+		love.graphics.setColor(1, 1, 1, 1)
+		love.graphics.rectangle("fill", width-box_width, 0, box_width, box_height)
+		love.graphics.setColor(0, 0, 0, 1)
+		local timer_string = tostring(math.floor(game_active_timer*1000)/1000)
+		if timer_string == "0" then
+			timer_string = "0.000"
+		end
+		love.graphics.print(timer_string, font, width-box_width+5, 0)
+		love.graphics.setColor(0, 0, 1, 1)
+		love.graphics.line(width-box_width, 0, width-box_width, box_height)
+		love.graphics.line(width-box_width, box_height, width, box_height)
+
 		love.graphics.pop()
 	end
 
@@ -99,6 +115,7 @@ function game.new()
 
 		if sea_increment  > -focused_node.y + 300 and not dead then
 			dead = true
+			SurvivedTime = game_active_timer
 			ScreenManager.publish('died :(')
 		end
 
@@ -107,6 +124,7 @@ function game.new()
 	function self:keyreleased(key)
 		if key == "k" then
 			dead = true
+			SurvivedTime = game_active_timer
 			ScreenManager.publish('died :(')
 		end
 		node_list:keyreleased(key)

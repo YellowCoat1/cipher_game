@@ -7,6 +7,10 @@ local cipher_secondary_color = {107/255, 128/255, 255/255}
 local font = love.graphics.newFont(64, "normal")
 local smaller_font = love.graphics.newFont(40, "normal")
 
+local function round_hundreth(n)
+	return math.floor(n*1000)/1000
+end
+
 function death.new()
 	local self = Screen:new()
 	self.name = "death"
@@ -28,9 +32,10 @@ function death.new()
 		if death_timer == death_timer_max then
 			-- top text
 			love.graphics.setColor(cipher_main_color)
-			love.graphics.print("Flooded!", font, (width/2)-font:getWidth("Flooded!")/2, height/5)
+			love.graphics.print("Flooded!", font, (width/2) - (font:getWidth("Flooded!")/2), height/5)
 			love.graphics.setColor(cipher_secondary_color)
-			love.graphics.print("Score: ABC", smaller_font, (width/2)-smaller_font:getWidth("Score: ABC")/2, height/5+height/10)
+			SurvivedTime = round_hundreth(SurvivedTime or 0)
+			love.graphics.print("Score: "..SurvivedTime, smaller_font, (width/2)-smaller_font:getWidth("Score: "..SurvivedTime)/2, height/5+height/10)
 			-- middle button
 			love.graphics.setColor(0, 0, 0, 0.3)
 			if button_pressed then

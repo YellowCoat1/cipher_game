@@ -10,10 +10,24 @@ function node_procedural.genNext(node_list)
 		table.insert(top_row_indexes, next_index)
 		next_index = next_index - 1
 	until node_list.nodes[next_index].y ~= latest_y
-	
+
+	-- forget about nodes at the top row that have an x-value far away from the main one
+	local to_remove = {}
+	if node_list.active_node then
+		for i,top_row_node in ipairs(top_row_indexes) do
+			if math.abs(node_list.nodes[top_row_node].x - node_list.nodes[node_list.active_node].x) > 1900 then
+				table.insert(to_remove, i)
+			end
+		end
+		for i=#to_remove,1,-1 do
+			table.remove(top_row_indexes, to_remove[i])
+		end
+	end
+
+
+
 
 	local num_next = math.random(2, 4)
-	
 
 	-- find the possible spaces to place the next nodes
 	local spaces = {}

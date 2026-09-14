@@ -49,14 +49,8 @@ function game.new()
 	end
 
 	function self:trailed_x_offset() --calc x offset if the player is deciding the next path
-		local connections = node_list:connections_from(node_list.active_node)
+		local connections, selected = node_list:selected_edge()
 		local total = #connections
-		local selected
-		for i,connection in ipairs(connections) do
-			if connection[3] then
-				selected=i
-			end
-		end
 		if total > 1 and selected  then
 			return Lerp(-50, 50, (selected-1)/(total-1))
 		else

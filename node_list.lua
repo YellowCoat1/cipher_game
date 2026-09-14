@@ -103,22 +103,25 @@ function node_list.new()
 		end
 	end
 
+	function self:selected_edge() -- finds the selected edge, if any
+		local selected
+		local connections = self:connections_from(self.active_node)
+		for i,connection in ipairs(connections) do
+			if connection[3] then
+				selected = i
+			end
+		end
+		return connections, selected
+	end
+
 	function self:keyreleased(key)
 		if key == "space" then
 			if self:completed() then
-				local connections = self:connections_from(self.active_node)
-				if #connections >= 1 then
-					local selected
-					for i,connection in ipairs(connections) do
-						if connection[3] then
-							selected = i
-						end
-					end
-					if selected then
-						local selected_target = connections[selected][2]
-						self:focused_node(selected_target)
-						self:jumpCallback()
-					end
+				local connections, selected = self:selected_edge()
+				if selected then
+					local selected_target = connections[selected][2]
+					self:focused_node(selected_target)
+					self:jumpCallback()
 				end
 			end
 		end

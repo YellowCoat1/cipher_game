@@ -29,6 +29,7 @@ function game.new()
 	local sea = sea_mod.new(love.graphics.getHeight()/2)
 	local sea_increment = 0
 	local dead = false
+	local game_active_timer = 0
 
 	local node_list = require('node_list').new()
 	initial_nodes(node_list)
@@ -64,6 +65,7 @@ function game.new()
 		if ScreenManager.peek().name ~= "game" then return end
 		if dead then return end
 		sea:update(dt)
+		game_active_timer = game_active_timer + dt
 		local focused_node = node_list:get_focused_node()
 		local x_offset = 0
 		if node_list:completed() then
@@ -74,10 +76,24 @@ function game.new()
 		end
 
 		if not focused_node then return end
-		local sea_increment_change = (10*(1+math.floor(-focused_node.y/300))*dt)
+
+		local sea_increment_change
+		if game_active_timer < 15 then
+			-- for the first 15 seconds, speed increases by 7 per second
+			sea_increment_change = 7*game_active_timer*dt
+		elseif game_active_timer < 30 then
+			-- at 15 to 30, it increases by 3 per second
+			sea_increment_change = (7*15*dt) + (2*(game_active_timer-15)*dt)
+		else
+			-- for the rest of the game, it increases by 1 per second
+			sea_increment_change = (7*15*dt) + (3*15*dt) + (1*(game_active_timer-30)*dt)
+		end
+
+		sea_increment_change = sea_increment_change + 40*dt -- constant factor
+
 		sea_increment = sea_increment + sea_increment_change
 
-		if -focused_node.y > sea_increment + 300 then -- boost
+		if -focused_node.y > sea_increment + 400 then -- boost
 			sea_increment = sea_increment + sea_increment_change + 20*dt
 		end
 

@@ -44,6 +44,10 @@ function node_list.new()
 				table.insert(list, v)
 			end
 		end
+		-- sort by left to right
+		table.sort(list, function(edge1, edge2)
+			return self.nodes[edge1[2]].x < self.nodes[edge2[2]].x
+		end)
 		return list
 	end
 
@@ -105,6 +109,7 @@ function node_list.new()
 
 	function self:selected_edge() -- finds the selected edge, if any
 		local selected
+		if not self.active_node then return end
 		local connections = self:connections_from(self.active_node)
 		for i,connection in ipairs(connections) do
 			if connection[3] then
@@ -114,11 +119,12 @@ function node_list.new()
 		return connections, selected
 	end
 
+
 	function self:keyreleased(key)
 		if key == "space" then
 			if self:completed() then
 				local connections, selected = self:selected_edge()
-				if selected then
+				if selected and connections then
 					local selected_target = connections[selected][2]
 					self:focused_node(selected_target)
 					self:jumpCallback()

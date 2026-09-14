@@ -23,6 +23,9 @@ function death.new()
 	local evil_glad = love.graphics.newImage('assets/evil_glad.png')
 	local evil_width, evil_height = evil_glad:getWidth(), evil_glad:getHeight()
 
+	local death_sfx = love.audio.newSource('assets/die.wav', "static")
+	death_sfx:play()
+
 	function self:draw()
 		local width, height = love.graphics.getDimensions()
 		love.graphics.setColor(1, 0, 0, 1)

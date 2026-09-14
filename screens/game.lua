@@ -30,7 +30,7 @@ function game.new()
 	local sea_increment = 0
 	local dead = false
 
-	local node_list = require('node_list')
+	local node_list = require('node_list').new()
 	initial_nodes(node_list)
 	cam:lookAt(0, 0)
 

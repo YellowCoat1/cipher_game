@@ -134,6 +134,9 @@ function node_list.new()
 
 		if self.active_node then
 			self.nodes[self.active_node]:keyreleased(key)
+			if self:completed() and #self:connections_from(self.active_node) == 1 then
+				self:connections_from(self.active_node)[1][3] = true
+			end
 		end
 	end
 
@@ -161,6 +164,8 @@ function node_list.new()
 				else
 					selectedNew = #connections
 				end
+			else
+				return
 			end
 
 			if selected then

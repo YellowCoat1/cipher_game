@@ -22,6 +22,8 @@ local function lerpColor(startc, endc, t)
 	return {Lerp(startc[1], endc[1], t), Lerp(startc[2], endc[2], t), Lerp(startc[3], endc[3], t)}
 end
 
+local random = love.math.random
+
 local function node(x, y, alen)
 	local node = {}
 	node.x = x or 100
@@ -38,7 +40,7 @@ local function node(x, y, alen)
 	local pattern = {}
 	alen = alen or 10
 	for _=1, alen do
-		table.insert(pattern, math.random(1, 4))
+		table.insert(pattern, random(1, 4))
 	end
 
 	function node:draw()

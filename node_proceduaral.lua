@@ -1,6 +1,7 @@
 local node = require 'node'
 local node_procedural = {}
 
+local random = love.math.random
 function node_procedural.genNext(node_list)
 
 	local initial_node_list_num = #node_list.nodes
@@ -31,7 +32,7 @@ function node_procedural.genNext(node_list)
 	local function clamp(n, min, max)
 		return math.min(math.max(n, min), max)
 	end
-	local num_next = clamp(math.random(#top_row_indexes-2, #top_row_indexes+2), 3, 10)
+	local num_next = clamp(random(#top_row_indexes-2, #top_row_indexes+2), 3, 10)
 
 	-- find the possible spaces to place the next nodes
 	local spaces = {}
@@ -70,7 +71,7 @@ function node_procedural.genNext(node_list)
 	end
 	local selected_x_vals = {} -- in the format x_val = node_index
 	for i=1,num_next do
-		local selected_space = math.random(1, #spaces_x_list)
+		local selected_space = random(1, #spaces_x_list)
 		local x_val = table.remove(spaces_x_list, selected_space)
 		selected_x_vals[tostring(x_val)] = i
 	end
@@ -102,14 +103,14 @@ function node_procedural.genNext(node_list)
 		end
 
 		if #connecting_top_nodes >= 1 then
-			local connecting_part = math.random(1, #connecting_top_nodes)
+			local connecting_part = random(1, #connecting_top_nodes)
 			local connecting_part_node = table.remove(connecting_top_nodes, connecting_part)
 			table.insert(edge_lists, {top_node, connecting_part_node})
 		else
 			print("stranded node!")
 		end
 		if #connecting_top_nodes >= 1 then
-			local connecting_part = math.random(1, #connecting_top_nodes)
+			local connecting_part = random(1, #connecting_top_nodes)
 			local connecting_part_node = table.remove(connecting_top_nodes, connecting_part)
 			table.insert(edge_lists, {top_node, connecting_part_node})
 		end

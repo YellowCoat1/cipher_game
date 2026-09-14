@@ -24,6 +24,7 @@ function death.new()
 	local evil_width, evil_height = evil_glad:getWidth(), evil_glad:getHeight()
 
 	local death_sfx = love.audio.newSource('assets/die.wav', "static")
+	local restart_sfx = love.audio.newSource('assets/restart.wav', "static")
 	death_sfx:play()
 
 	function self:draw()
@@ -78,6 +79,7 @@ function death.new()
 		local height = love.graphics.getHeight()
 		if button == 1 and y >= height*(3/7) and y <= height*(4/7) then
 			ScreenManager.publish("restart")
+			restart_sfx:play()
 			button_pressed = false
 		elseif button == 1 then
 			button_pressed = false

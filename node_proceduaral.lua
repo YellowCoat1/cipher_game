@@ -117,12 +117,38 @@ function node_procedural.genNext(node_list)
 	end
 
 
+	-- remove every new node without an edge to it
+	local connected_node = {}
+	local nodes_to_remove = {}
+	for _,edge in ipairs(edge_lists) do
+		connected_node[edge[2]] = true
+	end
+	for node_index,val in ipairs(connected_node) do
+		if node_index and not val then
+			table.insert(nodes_to_remove, node_index)
+		end
+	end
+	--table.sort(nodes_to_remove)
+	--for i=#nodes_to_remove,1,-1 do
+	--	local node_to_remove = nodes_to_remove[i]
+	--	for _,edge in ipairs(edge_lists) do
+	--		if edge[2] > node_to_remove then
+	--			edge[2] = edge[2] - 1
+	--		end
+	--	end
+	--	num_next = num_next - 1
+
+	--end
+
+
 	-- make a new list sorted by node index
 	--
 	-- add new nodes
 	local node_list_len = #node_list.nodes
 	for x_val,node_index in pairs(selected_x_vals) do
-		node_list.nodes[node_index+node_list_len] = node(tonumber(x_val), latest_y-300, 3)
+		if connected_node[node_index] then
+			node_list.nodes[node_index+node_list_len] = node(tonumber(x_val), latest_y-300, 3)
+		end
 	end
 
 

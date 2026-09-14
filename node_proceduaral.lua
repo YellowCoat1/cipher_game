@@ -1,14 +1,6 @@
 local node = require 'node'
 local node_procedural = {}
 
-
-local function find_in_table(subject, term)
-	for i,v in pairs(table) do
-		if v == term then return true end
-	end
-	return false
-end
-
 function node_procedural.genNext(node_list)
 	local initial_node_list_num = #node_list.nodes
 	local latest_y = node_list.nodes[#node_list.nodes].y

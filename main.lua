@@ -1,4 +1,5 @@
 ScreenManager = require("libs.ScreenManager")
+local exit = require 'exit'
 
 DialogueConfig = {
 	boxHeight = 200,
@@ -29,10 +30,12 @@ function love.load()
 	ScreenManager.push("scrollingBG")
 	ScreenManager.push("main")
 	love.graphics.setBackgroundColor(1, 1, 1, 1)
+	exit.load()
 end
 
 function love.draw()
 	ScreenManager.draw()
+	exit.draw()
 end
 
 function love.keypressed(key)
@@ -51,4 +54,5 @@ function love.mousereleased(x, y, button)
 end
 function love.update(dt)
 	ScreenManager.update(dt)
+	exit.update(dt)
 end

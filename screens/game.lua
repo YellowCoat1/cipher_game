@@ -95,6 +95,10 @@ function game.new()
 	end
 
 	function self:keyreleased(key)
+		if key == "k" then
+			dead = true
+			ScreenManager.publish('died :(')
+		end
 		node_list:keyreleased(key)
 	end
 

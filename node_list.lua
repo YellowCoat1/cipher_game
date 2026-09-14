@@ -9,6 +9,8 @@ function node_list.new()
 	self.node_connections = {}
 	self.active_node = nil
 
+	local slide = love.audio.newSource('assets/slide.wav', 'static')
+
 	function self:insert_node(node)
 		node.active = false
 		table.insert(self.nodes, node)
@@ -128,6 +130,7 @@ function node_list.new()
 					local selected_target = connections[selected][2]
 					self:focused_node(selected_target)
 					self:jumpCallback()
+					slide:play()
 				end
 			end
 		end

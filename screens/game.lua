@@ -94,7 +94,7 @@ function game.new()
 		sea_increment = sea_increment + sea_increment_change
 
 		if -focused_node.y > sea_increment + 400 then -- boost
-			sea_increment = sea_increment + sea_increment_change + 20*dt
+			sea_increment = sea_increment + sea_increment_change*(0.5) + 50*dt
 		end
 
 		if sea_increment  > -focused_node.y + 300 and not dead then

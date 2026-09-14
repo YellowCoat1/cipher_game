@@ -9,6 +9,8 @@ DialogueConfig = {
 	borderWidth = 3
 }
 
+SurvivedTime = 0
+
 function love.load()
 
 	local screens = {

@@ -36,6 +36,9 @@ local function node(x, y, alen)
 	node.active = false
 	node.completed_timer = 0
 
+	local hit_sound = love.audio.newSource("assets/hit.wav", "static")
+	local takeover_sound = love.audio.newSource('assets/takeover.wav', "static")
+
 
 	local pattern = {}
 	alen = alen or 10
@@ -118,6 +121,7 @@ local function node(x, y, alen)
 			self.centerOffsetX = -offset_amount
 			self.centerOffsetY = 0
 			table.remove(pattern, #pattern)
+			self:onSuccess()
 		else
 			self:cooldown()
 		end
@@ -128,6 +132,7 @@ local function node(x, y, alen)
 			self.centerOffsetX = offset_amount
 			self.centerOffsetY = 0
 			table.remove(pattern, #pattern)
+			self:onSuccess()
 		else
 			self:cooldown()
 		end
@@ -138,6 +143,7 @@ local function node(x, y, alen)
 			self.centerOffsetX = 0
 			self.centerOffsetY = -offset_amount
 			table.remove(pattern, #pattern)
+			self:onSuccess()
 		else
 			self:cooldown()
 		end
@@ -148,8 +154,17 @@ local function node(x, y, alen)
 			self.centerOffsetX = 0
 			self.centerOffsetY = offset_amount
 			table.remove(pattern, #pattern)
+			self:onSuccess()
 		else
 			self:cooldown()
+		end
+	end
+
+	function node:onSuccess()
+		if not self:completed() then
+			hit_sound:play()
+		else
+			takeover_sound:play()
 		end
 	end
 
@@ -163,6 +178,7 @@ local function node(x, y, alen)
 	function node:completed()
 		return #pattern == 0
 	end
+
 
 	return node
 end

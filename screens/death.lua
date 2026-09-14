@@ -69,7 +69,7 @@ function death.new()
 	function self:mousereleased(_, y, button)
 		local height = love.graphics.getHeight()
 		if button == 1 and y >= height*(3/7) and y <= height*(4/7) then
-			print("restart")
+			ScreenManager.publish("restart")
 			button_pressed = false
 		elseif button == 1 then
 			button_pressed = false

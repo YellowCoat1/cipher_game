@@ -32,6 +32,10 @@ function gameManager.new()
 			ScreenManager.pop()
 		elseif message == "died :(" then
 			ScreenManager.push("death")
+		elseif message == "restart" then
+			ScreenManager.pop()
+			ScreenManager.pop()
+			ScreenManager.push("game")
 		end
 	end
 	return self

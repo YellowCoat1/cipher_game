@@ -42,6 +42,9 @@ end
 function love.keyreleased(key)
 	ScreenManager.keyreleased(key)
 end
+function love.mousepressed(x, y, button)
+	ScreenManager.mousepressed(x, y, button)
+end
 
 function love.mousereleased(x, y, button)
 	ScreenManager.mousereleased(x, y, button)

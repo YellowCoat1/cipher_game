@@ -9,8 +9,10 @@ local smaller_font = love.graphics.newFont(40, "normal")
 
 function death.new()
 	local self = Screen:new()
+	self.name = "death"
 	local death_timer = 0
 	local death_timer_max = 0.85
+	local button_pressed = false
 
 	local cipher_ded = love.graphics.newImage('assets/cipher_ded.png')
 	local cipher_width, cipher_height = cipher_ded:getWidth(), cipher_ded:getHeight()
@@ -31,6 +33,9 @@ function death.new()
 			love.graphics.print("Score: ABC", smaller_font, (width/2)-smaller_font:getWidth("Score: ABC")/2, height/5+height/10)
 			-- middle button
 			love.graphics.setColor(0, 0, 0, 0.3)
+			if button_pressed then
+				love.graphics.setColor(0, 0, 0, 0.6)
+			end
 			love.graphics.rectangle("fill", 0, height*(3/7), width, height*(1/7))
 			love.graphics.setColor(0, 0, 0, 1)
 			love.graphics.line(0, height*(3/7), width, height*(3/7))
@@ -54,10 +59,22 @@ function death.new()
 	end
 
 
-	function self:mousepressed(button)
-
+	function self:mousepressed(_, y, button)
+		local height = love.graphics.getHeight()
+		if button == 1 and y >= height*(3/7) and y <= height*(4/7) then
+			button_pressed = true
+		end
 	end
 
+	function self:mousereleased(_, y, button)
+		local height = love.graphics.getHeight()
+		if button == 1 and y >= height*(3/7) and y <= height*(4/7) then
+			print("restart")
+			button_pressed = false
+		elseif button == 1 then
+			button_pressed = false
+		end
+	end
 	return self
 end
 

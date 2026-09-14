@@ -17,10 +17,11 @@ local lynx_width, lynx_height = lynx:getWidth(), lynx:getHeight()
 function MainScreen.new()
     local self = Screen.new()
     self.name = "main menu"
-
     self.fadeOut = nil
-
     self.lynx_rotation = 0
+    local bg_music = love.audio.newSource("assets/roman_sol-bg_music.wav", "stream")
+    bg_music:setLooping(true)
+    bg_music:play()
 
     function self:draw()
 	love.graphics.push()
@@ -51,6 +52,9 @@ function MainScreen.new()
 	    self.lynx_rotation = self.lynx_rotation + 5*dt
     end
 
+    function self:close()
+	bg_music:stop()
+    end
 
     function self:mousereleased(x, y)
 	    if x > square_dimensions.x and x < square_dimensions.x + square_dimensions.width and

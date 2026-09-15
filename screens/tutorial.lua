@@ -99,7 +99,31 @@ function tutorial.new()
 	end
 
 	function self:keyreleased(key)
+		if key == "p" then
+			self:skip()
+			return
+		end
 		node_list:keyreleased(key)
+	end
+
+	function self:skip()
+		if self.phase == phases.BEFORE_NODE then
+			self.dialog_scene = nil
+			self:tut1End()
+		elseif self.phase == phases.DURING_NODE then
+			node_list.nodes[1].pattern = {}
+		elseif self.phase == phases.BEFORE_SEA then
+			self.dialog_scene = nil
+			self:begin_sea_rising()
+		elseif self.phase == phases.DURING_SEA then
+			rising_sea_timer = 1
+		elseif self.phase == phases.AFTER_SEA then
+			self.dialog_scene = nil
+			self:new_branches()
+		elseif self.phase == phases.BRANCHES then
+			node_list.active_node = 2
+			node_list.nodes[2].pattern = {}
+		end
 	end
 
 	function self:tut1End()
@@ -114,12 +138,16 @@ function tutorial.new()
 		self.phase = phases.BEFORE_SEA
 		self.dialog_scene.onSignal = function(name, _)
 			if name == "Tut2End" then
-				rising_sea_timer = 0
-				sea.ylevel = love.graphics.getHeight() + 10
-				self.rising_sea_timer = 0
-				self.phase = phases.DURING_SEA
+				self:begin_sea_rising()
 			end
 		end
+	end
+
+	function self:begin_sea_rising()
+		self.phase = phases.DURING_SEA
+		rising_sea_timer = 0
+		sea.ylevel = love.graphics.getHeight() + 10
+		self.rising_sea_timer = 0
 	end
 
 	function self:tut3Start()

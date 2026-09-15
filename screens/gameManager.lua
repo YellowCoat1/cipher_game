@@ -6,8 +6,6 @@ function gameManager.new()
 
 	local self = Screen:new()
 
-	local tutorial_done = false
-
 	function self:receive(message)
 		if message == "mainMenuStart" then
 			ScreenManager.pop()
@@ -24,11 +22,7 @@ function gameManager.new()
 			ScreenManager.pop()
 			ScreenManager.push("game")
 			ScreenManager.push("transition_in")
-		elseif message == "transition_in_done" and not tutorial_done then
-			tutorial_done = true
-			ScreenManager.pop()
-			ScreenManager.push("final_tutorial")
-		elseif message == "final_tutorial_end" then
+		elseif message == "transition_in_done" then
 			ScreenManager.pop()
 		elseif message == "died :(" then
 			ScreenManager.push("death")

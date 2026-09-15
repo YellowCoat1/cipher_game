@@ -22,7 +22,6 @@ function love.load()
 		tutorial = require('screens.tutorial'),
 		transition_out = require('screens.transition_out'),
 		transition_in = require('screens.transition_in'),
-		final_tutorial = require('screens.final_tutorial'),
 		death = require('screens.death'),
 	}
 

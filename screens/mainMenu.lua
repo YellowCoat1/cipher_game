@@ -15,7 +15,7 @@ function MainScreen.new()
     local font_tiny = love.graphics.newFont(FontName, 10)
     local lynx = love.graphics.newImage("assets/Lynx.png")
     local lynx_width, lynx_height = lynx:getWidth(), lynx:getHeight()
-    
+
     local play_button, settings_button
 
     function self:calc_buttons()
@@ -79,6 +79,10 @@ function MainScreen.new()
 		if not self.fadeOut then
 		    self.fadeOut = 1
 		end
+	    end
+	    if x > settings_button.x and x < settings_button.x + settings_button.width and
+		    y > settings_button.y and y < settings_button.y + settings_button.height then
+		    ScreenManager.publish("settings")
 	    end
 
     end

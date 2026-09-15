@@ -34,6 +34,10 @@ function gameManager.new()
 			ScreenManager.pop()
 			ScreenManager.pop()
 			ScreenManager.push("game")
+		elseif message == "settings" then
+			ScreenManager.push("settings")
+		elseif message == "settings_exit" then
+			ScreenManager.pop()
 		end
 	end
 	return self

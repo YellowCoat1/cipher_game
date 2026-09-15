@@ -32,9 +32,22 @@ function tutorial.new()
 	self.rising_sea_timer = nil
 	self.node_completed = false
 
+	local opacity_mod = require('opacity').new()
+	local new_set_opacity_timer
+
 	function self:draw()
 		if self.dialog_scene then self.dialog_scene:draw() end
+		if node_list.nodes[1] then
+			node_list.nodes[1]:draw()
+		end
+		if new_set_opacity_timer and new_set_opacity_timer < 1 then
+			opacity_mod.set_opacity = new_set_opacity_timer
+			opacity_mod:attach()
+		end
 		node_list:draw()
+		if new_set_opacity_timer and new_set_opacity_timer < 1 then
+			opacity_mod:detach()
+		end
 		sea:draw()
 	end
 
@@ -42,6 +55,9 @@ function tutorial.new()
 		sea:update(dt)
 		if self.dialog_scene then self.dialog_scene:update(dt) end
 
+		if new_set_opacity_timer then
+			new_set_opacity_timer = math.min(1, new_set_opacity_timer + 2*dt)
+		end
 
 		node_list:update(dt)
 		if node_list.nodes[1] and node_list:completed() and self.node_completed == false then
@@ -121,6 +137,7 @@ function tutorial.new()
 		node_list:insert_nodes(new_node_2, new_node_3)
 		node_list:insert_connection(1, 2)
 		node_list:insert_connection(1, 3)
+		new_set_opacity_timer = 0
 	end
 
 

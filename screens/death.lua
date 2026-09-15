@@ -1,8 +1,9 @@
 local Screen = require 'screens.Screen'
+local colors = require 'colors'
 local death = {}
 
-local cipher_main_color = {53/255, 74/255, 255/255}
-local cipher_secondary_color = {107/255, 128/255, 255/255}
+local cipher_main_color = colors.cipher_main_color
+local cipher_secondary_color = colors.cipher_secondary_color
 
 local font = love.graphics.newFont(FontName, 64)
 local smaller_font = love.graphics.newFont(FontName, 40)

@@ -1,10 +1,11 @@
 local sea = {}
+local colors = require 'colors'
 
 local line_len = 30
 local space_len = 10
 
-local negative_primary = {148/255,102/255,1/255}
-local negative_secondary = {238/255,226/255,0/255}
+local negative_primary = colors.negative_primary
+local negative_secondary = colors.negative_secondary
 
 
 function sea.new(ylevel)

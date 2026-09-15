@@ -1,3 +1,4 @@
+local colors = require 'colors'
 local ring_png = love.graphics.newImage("assets/ring_white.png")
 local ring_width, ring_height = ring_png:getWidth(), ring_png:getHeight()
 local arrow_png = love.graphics.newImage("assets/arrow.png")
@@ -5,9 +6,9 @@ local arrow_width, arrow_height = arrow_png:getWidth(), arrow_png:getHeight()
 local spike_ring = love.graphics.newImage("assets/spike.png")
 local spike_width, spike_height = spike_ring:getWidth(), spike_ring:getHeight()
 
-local coal_color = {64/256, 64/256, 64/256}
-local cipher_main_color = {53/255, 74/255, 255/255}
-local cipher_secondary_color = {107/255, 128/255, 255/255}
+local coal_color = colors.coal_color
+local cipher_main_color = colors.cipher_main_color
+local cipher_secondary_color = colors.cipher_secondary_color
 
 local directions = {
 	UP = 1,

@@ -1,7 +1,8 @@
 local node_list = {}
+local colors = require 'colors'
 
-local coal_color = {64/256, 64/256, 64/256}
-local cipher_secondary_color = {107/255, 128/255, 255/255}
+local coal_color = colors.coal_color
+local cipher_secondary_color = colors.cipher_secondary_color
 
 function node_list.new()
 	local self = {}

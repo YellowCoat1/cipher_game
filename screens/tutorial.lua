@@ -2,10 +2,11 @@ local Screen = require('screens.Screen')
 local loveDialogue = require('libs.LoveDialogue')
 local node = require('node')
 local sea_mod = require("sea")
+local colors = require("colors")
 
 local tutorial = {}
 
-local coal_color = {64/256, 64/256, 64/256}
+local coal_color = colors.coal_color
 
 local phases = {
 	BEFORE_NODE = 1,

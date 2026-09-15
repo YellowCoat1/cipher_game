@@ -5,6 +5,8 @@ local sea_mod = require("sea")
 
 local tutorial = {}
 
+local coal_color = {64/256, 64/256, 64/256}
+
 local phases = {
 	BEFORE_NODE = 1,
 	DURING_NODE = 2,
@@ -31,6 +33,7 @@ function tutorial.new()
 	local sea = sea_mod.new()
 	local rising_sea_timer
 	local node_list = require('node_list').new()
+	local branches_tip_timer
 	sea.ylevel = love.graphics.getHeight() + 50
 	self.rising_sea_timer = nil
 	self.node_completed = false
@@ -52,6 +55,25 @@ function tutorial.new()
 			opacity_mod:detach()
 		end
 		sea:draw()
+
+		if self.phase == phases.BRANCHES then
+			self:branches_tip_draw()
+		end
+	end
+
+	function self:branches_tip_draw()
+		if not branches_tip_timer then return end
+		local offset = -60+60*math.sqrt(math.sqrt(branches_tip_timer))
+		local width, height = love.graphics.getDimensions()
+		love.graphics.setColor(1, 1, 1, 1)
+		love.graphics.rectangle("fill", width*(3/5), offset, 200, 60)
+		love.graphics.setColor(coal_color)
+		love.graphics.line(width*(3/5), offset, width*(3/5), offset+60)
+		love.graphics.line(width*(3/5), offset+60, width*(3/5)+200,offset+60)
+		love.graphics.line(width*(3/5)+200, offset+60, width*(3/5)+200, offset)
+		love.graphics.setColor(0, 0, 0, 1)
+		love.graphics.print("space -> jump", width*(3/5)+10, offset)
+		love.graphics.print("arrows -> select", width*(3/5)+10, offset+30)
 	end
 
 	function self:update(dt)
@@ -88,6 +110,10 @@ function tutorial.new()
 				self:tut3Start()
 				rising_sea_timer = 101
 			end
+		end
+
+		if branches_tip_timer then
+			branches_tip_timer = math.min(1, branches_tip_timer + dt)
 		end
 
 	end
@@ -169,6 +195,7 @@ function tutorial.new()
 
 	function self:new_branches()
 		self.phase = phases.BRANCHES
+		branches_tip_timer = 0
 		local new_node_2 = node(200+love.graphics.getWidth()/2, love.graphics.getHeight()*(1/3), 3)
 		local new_node_3 = node(-200+love.graphics.getWidth()/2, love.graphics.getHeight()*(1/3), 3)
 		node_list:insert_nodes(new_node_2, new_node_3)

@@ -41,10 +41,10 @@ local function node(x, y, alen)
 	local wrong_sound = love.audio.newSource('assets/wrong.wav', "static")
 
 
-	local pattern = {}
+	node.pattern = {}
 	alen = alen or 10
 	for _=1, alen do
-		table.insert(pattern, random(1, 4))
+		table.insert(node.pattern, random(1, 4))
 	end
 
 	function node:draw(opacity)
@@ -61,7 +61,7 @@ local function node(x, y, alen)
 			love.graphics.setColor(lerpColor(coal_color, cipher_secondary_color, self.completed_timer))
 		end
 		love.graphics.draw(ring_png, self.x, self.y, self.ring1_rotation, ring_scale, ring_scale, ring_width/2, ring_height/2)
-		local arrow_direction = pattern[#pattern] or 1
+		local arrow_direction = node.pattern[#node.pattern] or 1
 		local arrow_rotation
 		if arrow_direction == 1 then
 			arrow_rotation = math.rad(360-90)
@@ -85,7 +85,7 @@ local function node(x, y, alen)
 		local ring_speed
 		if node.active then
 			ring_speed = 5
-		else 
+		else
 			ring_speed = 1
 		end
 		self.ring1_rotation = self.ring1_rotation + ring_speed*dt
@@ -120,10 +120,10 @@ local function node(x, y, alen)
 
 	local offset_amount = 10
 	function node:left()
-		if pattern[#pattern] == directions.LEFT then
+		if self.pattern[#self.pattern] == directions.LEFT then
 			self.centerOffsetX = -offset_amount
 			self.centerOffsetY = 0
-			table.remove(pattern, #pattern)
+			table.remove(self.pattern, #self.pattern)
 			self:onSuccess()
 		else
 			self:cooldown()
@@ -131,10 +131,10 @@ local function node(x, y, alen)
 	end
 
 	function node:right()
-		if pattern[#pattern] == directions.RIGHT then
+		if self.pattern[#self.pattern] == directions.RIGHT then
 			self.centerOffsetX = offset_amount
 			self.centerOffsetY = 0
-			table.remove(pattern, #pattern)
+			table.remove(self.pattern, #self.pattern)
 			self:onSuccess()
 		else
 			self:cooldown()
@@ -142,10 +142,10 @@ local function node(x, y, alen)
 	end
 
 	function node:up()
-		if pattern[#pattern] == directions.UP then
+		if self.pattern[#self.pattern] == directions.UP then
 			self.centerOffsetX = 0
 			self.centerOffsetY = -offset_amount
-			table.remove(pattern, #pattern)
+			table.remove(self.pattern, #self.pattern)
 			self:onSuccess()
 		else
 			self:cooldown()
@@ -153,10 +153,10 @@ local function node(x, y, alen)
 	end
 
 	function node:down()
-		if pattern[#pattern] == directions.DOWN then
+		if self.pattern[#self.pattern] == directions.DOWN then
 			self.centerOffsetX = 0
 			self.centerOffsetY = offset_amount
-			table.remove(pattern, #pattern)
+			table.remove(self.pattern, #self.pattern)
 			self:onSuccess()
 		else
 			self:cooldown()
@@ -183,7 +183,7 @@ local function node(x, y, alen)
 	end
 
 	function node:completed()
-		return #pattern == 0
+		return #self.pattern == 0
 	end
 
 

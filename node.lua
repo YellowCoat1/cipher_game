@@ -163,6 +163,8 @@ local function node(x, y, alen)
 
 	function node:onSuccess()
 		if not self:completed() then
+			local pitch = (love.math.random()/5) + 4.5/5
+			hit_sound:setPitch(pitch)
 			hit_sound:play()
 		else
 			takeover_sound:play()

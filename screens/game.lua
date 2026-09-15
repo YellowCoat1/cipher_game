@@ -5,11 +5,11 @@ local sea_mod = require('sea')
 local node_procedural = require 'node_proceduaral'
 
 local function initial_nodes(node_list)
-	local node1 = node(0, 0, 3)
-	local node2 = node(-200, -300, 3)
-	local node3 = node(200, -300, 3)
-	local node4 = node(-200, -600, 3)
-	local node5 = node(200, -600, 3)
+	local node1 = node(0, 0, 2)
+	local node2 = node(-200, -300, 2)
+	local node3 = node(200, -300, 2)
+	local node4 = node(-200, -600, 2)
+	local node5 = node(200, -600, 2)
 	node_list:insert_nodes(node1, node2, node3, node4, node5)
 	node_list:insert_connection(1, 2, false)
 	node_list:insert_connection(1, 3, false)
@@ -41,13 +41,32 @@ function game.new()
 	cam:lookAt(0, 0)
 
 
-	local function node_pattern_len(node_list)
-		return 3
+	local function node_pattern_len(node_list_t)
+		if not node_list_t.active_node then return 3 end
+
+		local active_y = -node_list_t.nodes[node_list.active_node].y
+
+
+		return 2+math.floor(active_y/1500)
 	end
 
-	local function node_spike(node_list)
-		return love.math.random() > 0.8
+	local function node_spike(node_list_t)
+		if not node_list_t.active_node then return false end
+		local active_y = -node_list_t.nodes[node_list.active_node].y
+
+		local cap = 0.90
+		if active_y > 900 then
+			cap = cap - 0.1
+		end
+		if active_y > 2100 then
+			cap = cap - 0.1
+		end
+		if active_y > 3600 then
+			cap = cap - 0.3
+		end
+		return love.math.random() > cap
 	end
+
 	node_procedural.spike_callback = node_spike
 	node_procedural.pattern_len_callback = node_pattern_len
 

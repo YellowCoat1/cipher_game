@@ -1,6 +1,8 @@
 ScreenManager = require("libs.ScreenManager")
 local exit = require 'exit'
 
+LynxNoteValid = true
+
 DialogueConfig = {
 	boxHeight = 200,
 	boxWidth = 800,

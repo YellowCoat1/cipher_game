@@ -105,6 +105,7 @@ function tutorial.new()
 	end
 
 	function self:skip()
+		LynxNoteValid = false
 		if self.phase == phases.BEFORE_NODE then
 			self.dialog_scene = nil
 			self:tut1End()

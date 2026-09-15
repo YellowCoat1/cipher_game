@@ -6,6 +6,7 @@ function lynx_note.new()
 	self.name = "lynx note"
 	local timer = 0
 	local dialog
+	LynxNoteValid = false
 
 
 	function self:draw()
@@ -20,8 +21,13 @@ function lynx_note.new()
 			dialog.onSignal = function(name, _)
 				if name == "LynxEnd" then
 					ScreenManager.pop()
+					return
 				end
 			end
+		end
+
+		if love.keyboard.isDown("p") then
+			ScreenManager.pop()
 		end
 	end
 	function self:keypressed(key)

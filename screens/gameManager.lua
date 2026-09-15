@@ -12,6 +12,7 @@ function gameManager.new()
 			if love.keyboard.isDown("p") then
 				ScreenManager.push("game")
 				ScreenManager.push("transition_in")
+				LynxNoteValid = false
 			else
 				ScreenManager.push("tutorial")
 			end
@@ -26,7 +27,9 @@ function gameManager.new()
 			ScreenManager.pop()
 		elseif message == "died :(" then
 			ScreenManager.push("death")
-			ScreenManager.push('lynx_note')
+			if LynxNoteValid then
+				ScreenManager.push('lynx_note')
+			end
 		elseif message == "restart" then
 			ScreenManager.pop()
 			ScreenManager.pop()

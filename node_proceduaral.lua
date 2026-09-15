@@ -32,7 +32,7 @@ function node_procedural.genNext(node_list)
 	local function clamp(n, min, max)
 		return math.min(math.max(n, min), max)
 	end
-	local num_next = clamp(random(#top_row_indexes-2, #top_row_indexes+2), 3, 10)
+	local num_next = clamp(random(#top_row_indexes-2, #top_row_indexes+2), 3, 8)
 
 	-- find the possible spaces to place the next nodes
 	local spaces = {}

@@ -129,15 +129,15 @@ function game.new()
 		if not focused_node then return end
 
 		local sea_increment_change
-		if game_active_timer < 15 then
-			-- for the first 15 seconds, speed increases by 7 per second
-			sea_increment_change = 7*game_active_timer*dt
+		if game_active_timer < 10 then
+			-- for the first 10 seconds, speed increases by 8 per second
+			sea_increment_change = 8*game_active_timer*dt
 		elseif game_active_timer < 30 then
-			-- at 15 to 30, it increases by 3 per second
-			sea_increment_change = (7*15*dt) + (2*(game_active_timer-15)*dt)
+			-- then up to 30, it increases by 2 per second
+			sea_increment_change = (7*10*dt) + (2*(game_active_timer-15)*dt)
 		else
 			-- for the rest of the game, it increases by 1 per second
-			sea_increment_change = (7*15*dt) + (3*15*dt) + (1*(game_active_timer-30)*dt)
+			sea_increment_change = (7*10*dt) + (3*15*dt) + (1*(game_active_timer-30)*dt)
 		end
 
 		sea_increment_change = sea_increment_change + 40*dt -- constant factor
@@ -145,7 +145,7 @@ function game.new()
 		sea_increment = sea_increment + sea_increment_change
 
 		if -focused_node.y > sea_increment + 400 then -- boost
-			sea_increment = sea_increment + sea_increment_change*(0.5) + 50*dt
+			sea_increment = sea_increment + sea_increment_change*(0.8) + 50*dt
 		end
 
 		if sea_increment  > -focused_node.y + 300 and not dead then

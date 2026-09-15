@@ -84,11 +84,12 @@ function node_list.new()
 		table.remove(self.node_connections, connection_index)
 	end
 
-	function self:draw()
-			self:draw_node_connections()
-			for _,single_node in ipairs(self.nodes) do
-				single_node:draw()
-			end
+	function self:draw(opacity)
+		local opacity = opacity or 1
+		self:draw_node_connections(opacity)
+		for _,single_node in ipairs(self.nodes) do
+			single_node:draw(opacity)
+		end
 	end
 
 	function self:update(dt)
@@ -97,12 +98,12 @@ function node_list.new()
 		end
 	end
 
-	function self:draw_node_connections()
+	function self:draw_node_connections(opacity)
 		for _, node_connection in ipairs(self.node_connections) do
 			if not node_connection[3] then
-				love.graphics.setColor(coal_color)
+				love.graphics.setColor(coal_color[1], coal_color[2], coal_color[3], opacity)
 			else
-				love.graphics.setColor(cipher_secondary_color)
+				love.graphics.setColor(cipher_secondary_color[1], cipher_secondary_color[2], cipher_secondary_color[3], opacity)
 			end
 			local nodec1, nodec2 = self.nodes[node_connection[1]], self.nodes[node_connection[2]]
 			love.graphics.line(nodec1.x, nodec1.y, nodec2.x, nodec2.y)

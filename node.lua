@@ -47,11 +47,13 @@ local function node(x, y, alen)
 		table.insert(pattern, random(1, 4))
 	end
 
-	function node:draw()
+	function node:draw(opacity)
+		opacity = opacity or 1
 		if not self:completed() then
-			love.graphics.setColor(coal_color)
+			love.graphics.setColor(coal_color[1], coal_color[2], coal_color[3], opacity)
 		else
-			love.graphics.setColor(lerpColor(coal_color, cipher_main_color, self.completed_timer))
+			local lc = lerpColor(coal_color, cipher_main_color, self.completed_timer)
+			love.graphics.setColor(lc[1], lc[2], lc[3], opacity)
 		end
 		love.graphics.circle("fill", self.x+self.centerOffsetX, self.y+self.centerOffsetY, 45)
 		local ring_scale = 0.5
@@ -70,9 +72,9 @@ local function node(x, y, alen)
 		else
 			arrow_rotation = math.rad(0)
 		end
-		love.graphics.setColor(125/256, 230/256, 125/256)
+		love.graphics.setColor(125/256, 230/256, 125/256, opacity)
 		if self.cooldown_timer > 0 then
-			love.graphics.setColor(1, 0, 0)
+			love.graphics.setColor(1, 0, 0, opacity)
 		end
 		if not self:completed() then
 			love.graphics.draw(arrow_png, self.x+self.centerOffsetX, self.y+self.centerOffsetY, arrow_rotation, 0.1, 0.1, arrow_width/2, arrow_height/2)

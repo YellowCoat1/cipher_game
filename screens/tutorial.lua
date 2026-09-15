@@ -113,6 +113,8 @@ function tutorial.new()
 				self:tut3Start()
 				rising_sea_timer = 101
 			end
+		else
+			sea.ylevel = love.graphics.getHeight() + 50
 		end
 
 		if branches_tip_timer then

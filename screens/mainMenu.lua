@@ -2,19 +2,6 @@ local Screen = require('screens.Screen')
 
 local MainScreen = {}
 
-local font = love.graphics.newFont(FontName, 64)
-local font_tiny = love.graphics.newFont(FontName, 10)
-local square_dimensions = {
-	x = 100,
-	y = 300,
-	width = font:getWidth("Play")+80,
-	height = 100
-}
-local lynx = love.graphics.newImage("assets/Lynx.png")
-local lynx_width, lynx_height = lynx:getWidth(), lynx:getHeight()
-
-
-
 function MainScreen.new()
     local self = Screen.new()
     self.name = "main menu"
@@ -24,7 +11,31 @@ function MainScreen.new()
     bg_music:setLooping(true)
     bg_music:play()
 
+    local font = love.graphics.newFont(FontName, 64)
+    local font_tiny = love.graphics.newFont(FontName, 10)
+    local square_dimensions
+    do
+    	local width, height = love.graphics.getDimensions()
+    	square_dimensions = {
+    		x = 1*width/5,
+    		y = 2*height/5,
+    		width = font:getWidth("Play")+80,
+    		height = 100
+    	}
+    end
+    local lynx = love.graphics.newImage("assets/Lynx.png")
+    local lynx_width, lynx_height = lynx:getWidth(), lynx:getHeight()
+
+
+
     function self:draw()
+    	local width, height = love.graphics.getDimensions()
+	square_dimensions = {
+    		x = 1*width/5,
+   	 	y = 2*height/5,
+   	 	width = font:getWidth("Play")+80,
+   	 	height = 100
+   	 }
 	love.graphics.push()
 	love.graphics.setColor(0, 0, 0)
         love.graphics.print("man i love main screens", font_tiny, 20, 5)
@@ -35,7 +46,7 @@ function MainScreen.new()
 	love.graphics.setColor(0.1, 0.1, 0.1, opacity)
 
 	love.graphics.print("play", font, square_dimensions.x+40, 20+square_dimensions.y)
-	love.graphics.print("a dumbass cipher fanart game", font, 300, 100, 0.5, 0.5)
+	love.graphics.print("a dumbass cipher fanart game", font, width-600, height*(1/5), 0.5, 0.5)
 
 	love.graphics.setColor(1, 1, 1, 1)
 	love.graphics.draw(lynx, love.graphics.getWidth()-100, love.graphics.getHeight()-100, self.lynx_rotation, 0.5, 0.5, lynx_width/2, lynx_height/2)

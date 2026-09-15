@@ -180,14 +180,7 @@ function tutorial.new()
 
 	function self:tut3Start()
 		self.phase = phases.AFTER_SEA
-		self.dialog_scene = loveDialogue.play("scripts/tut3.ld", {
-			boxHeight = 200,
-			boxWidth = 800,
-			centerBox = true,
-			boxColor = {0, 0, 0, 1},
-			borderColor = {1, 1, 1, 1},
-			borderWidth = 3
-		})
+		self.dialog_scene = loveDialogue.play("scripts/tut3.ld", DialogueConfig)
 
 		self.dialog_scene.onSignal = function(name, _)
 			if name == "Tut3End" then

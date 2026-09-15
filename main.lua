@@ -18,6 +18,16 @@ FontName = "assets/hijo.regular.otf"
 
 function love.load()
 
+	DialogueConfig = {
+		boxHeight = 200,
+		boxWidth = math.max(love.graphics.getWidth()-300, 50),
+		centerBox = true,
+		boxColor = {0, 0, 0, 1},
+		borderColor = {1, 1, 1, 1},
+		borderWidth = 3
+	}
+
+
 	local screens = {
 		main = require('screens.mainMenu'),
 		scrollingBG = require('screens.scrollingBG'),
@@ -38,6 +48,14 @@ function love.load()
 end
 
 function love.draw()
+	DialogueConfig = {
+		boxHeight = 200,
+		boxWidth = math.max(love.graphics.getWidth()-300, 50),
+		centerBox = true,
+		boxColor = {0, 0, 0, 1},
+		borderColor = {1, 1, 1, 1},
+		borderWidth = 3
+	}
 	ScreenManager.draw()
 	exit.draw()
 end

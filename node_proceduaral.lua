@@ -175,5 +175,37 @@ end
 
 
 
+-- remove nodes that are far down, and stranded edges
+function node_procedural.cleanup(node_list)
+	if not node_list.active_node then return end
+	local active_y = node_list.nodes[node_list.active_node].y
+
+	local nodes_to_remove = {}
+	for i,node_part in ipairs(node_list.nodes) do
+		if node_part.y + 1000 < active_y then
+			table.insert(nodes_to_remove, i)
+		end
+	end
+
+	table.sort(nodes_to_remove)
+	for i=#nodes_to_remove,1,-1 do
+		local node_to_remove = nodes_to_remove[i]
+		for _,edge in ipairs(node_list.node_connections) do
+			if edge[1] > node_to_remove then
+				edge[1] = edge[1] - 1
+			end
+			if edge[2] > node_to_remove then
+				edge[2] = edge[2] - 1
+			end
+		end
+		table.remove(node_list.nodes, node_to_remove)
+		if node_list.active_node > node_to_remove then
+			node_list.active_node = node_list.active_node - 1
+		end
+	end
+
+
+
+end
 
 return node_procedural

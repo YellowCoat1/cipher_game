@@ -42,6 +42,7 @@ function game.new()
 
 	node_list.jumpCallback = function(node_list_arg)
 		node_procedural.genNext(node_list_arg)
+		node_procedural.cleanup(node_list_arg)
 	end
 
 

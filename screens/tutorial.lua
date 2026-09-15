@@ -52,8 +52,6 @@ function tutorial.new()
 			opacity_mod:detach()
 		end
 		sea:draw()
-
-		print(self.phase)
 	end
 
 	function self:update(dt)

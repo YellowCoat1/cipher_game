@@ -44,10 +44,15 @@ function tutorial.new()
 
 
 		node_list:update(dt)
-		if node_list.nodes[1] then
-			if node_list:completed() and self.node_completed == false then
-				self:tut2Start()
-				self.node_completed = true
+		if node_list.nodes[1] and node_list:completed() and self.node_completed == false then
+			self:tut2Start()
+			self.node_completed = true
+		end
+
+		if node_list:completed() then
+			if node_list.active_node > 1 and not self.node_completed_2 then
+				ScreenManager.publish("tutorial_end")
+				self.node_completed_2 = true
 			end
 		end
 
@@ -69,6 +74,7 @@ function tutorial.new()
 	end
 	function self:keypressed(key)
 		if self.dialog_scene then self.dialog_scene:keypressed(key) end
+		node_list:keypressed(key)
 	end
 
 	function self:keyreleased(key)
@@ -104,9 +110,17 @@ function tutorial.new()
 
 		self.dialog_scene.onSignal = function(name, _)
 			if name == "Tut3End" then
-				ScreenManager.publish("tutorialEnd")
+				self:new_branches()
 			end
 		end
+	end
+
+	function self:new_branches()
+		local new_node_2 = node(200+love.graphics.getWidth()/2, love.graphics.getHeight()*(1/3), 3)
+		local new_node_3 = node(-200+love.graphics.getWidth()/2, love.graphics.getHeight()*(1/3), 3)
+		node_list:insert_nodes(new_node_2, new_node_3)
+		node_list:insert_connection(1, 2)
+		node_list:insert_connection(1, 3)
 	end
 
 

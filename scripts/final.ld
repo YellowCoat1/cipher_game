@@ -4,6 +4,6 @@
 
 
 lynx: haiii!!! its lynx
-lynx: as a treat for ur first game, u can use p to skip the opening cutscene
+lynx: as a treat for ur first game, u can press "p" to skip most cutscenes
 lynx: that's all for now. bye bye!!
 [signal: LynxEnd]

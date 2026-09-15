@@ -118,18 +118,20 @@ function game.new()
 		end
 
 		if sea_increment  > -focused_node.y + 300 and not dead then
-			dead = true
-			SurvivedTime = game_active_timer
-			ScreenManager.publish('died :(')
+			self:die()
 		end
 
 	end
 
+	function self:die()
+		dead = true
+		SurvivedTime = game_active_timer
+		ScreenManager.publish('died :(')
+	end
+
 	function self:keyreleased(key)
 		if key == "k" then
-			dead = true
-			SurvivedTime = game_active_timer
-			ScreenManager.publish('died :(')
+			self:die()
 		end
 		node_list:keyreleased(key)
 	end

@@ -27,13 +27,14 @@ function tutorial.new()
 	end
 	local sea = sea_mod.new()
 	local rising_sea_timer
+	local node_list = require('node_list').new()
 	sea.ylevel = love.graphics.getHeight() + 50
 	self.rising_sea_timer = nil
 	self.node_completed = false
 
 	function self:draw()
 		if self.dialog_scene then self.dialog_scene:draw() end
-		if self.node then self.node:draw() end
+		node_list:draw()
 		sea:draw()
 	end
 
@@ -42,9 +43,9 @@ function tutorial.new()
 		if self.dialog_scene then self.dialog_scene:update(dt) end
 
 
-		if self.node then
-			self.node:update(dt)
-			if self.node.completed_timer >= 1 and self.node_completed == false then
+		node_list:update(dt)
+		if node_list.nodes[1] then
+			if node_list:completed() and self.node_completed == false then
 				self:tut2Start()
 				self.node_completed = true
 			end
@@ -69,13 +70,15 @@ function tutorial.new()
 	function self:keypressed(key)
 		if self.dialog_scene then self.dialog_scene:keypressed(key) end
 	end
+
 	function self:keyreleased(key)
-		if self.node then self.node:keyreleased(key) end
+		node_list:keyreleased(key)
 	end
 
 	function self:tut1End()
-		self.node = node(love.graphics.getWidth()/2, love.graphics.getHeight()/2, 3)
-		self.node.active = true
+		local new_node = node(love.graphics.getWidth()/2, love.graphics.getHeight()/2, 3)
+		node_list:insert_node(new_node)
+		node_list:focused_node(1)
 	end
 
 	function self:tut2Start()

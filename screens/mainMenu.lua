@@ -19,8 +19,8 @@ function MainScreen.new()
     	square_dimensions = {
     		x = 1*width/5,
     		y = 2*height/5,
-    		width = font:getWidth("Play")+80,
-    		height = 100
+    		width = 400,
+    		height = 100,
     	}
     end
     local lynx = love.graphics.newImage("assets/Lynx.png")
@@ -33,7 +33,7 @@ function MainScreen.new()
 	square_dimensions = {
     		x = 1*width/5,
    	 	y = 2*height/5,
-   	 	width = font:getWidth("Play")+80,
+   	 	width = 400,
    	 	height = 100
    	 }
 	love.graphics.push()
@@ -43,9 +43,11 @@ function MainScreen.new()
 	local opacity = self.fadeOut or 1
 	love.graphics.setColor(0.4, 0.4, 0.6, opacity)
 	love.graphics.rectangle("fill", square_dimensions.x, square_dimensions.y, square_dimensions.width, square_dimensions.height)
+	love.graphics.rectangle("fill", square_dimensions.x, square_dimensions.y+150, square_dimensions.width, square_dimensions.height)
 	love.graphics.setColor(0.1, 0.1, 0.1, opacity)
 
 	love.graphics.print("play", font, square_dimensions.x+40, 20+square_dimensions.y)
+	love.graphics.print("settings", font, square_dimensions.x+40, 20+square_dimensions.y+150)
 	love.graphics.print("a dumbass cipher fanart game", font, width-600, height*(1/5), 0.5, 0.5)
 
 	love.graphics.setColor(1, 1, 1, 1)

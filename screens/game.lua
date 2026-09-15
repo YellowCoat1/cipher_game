@@ -40,6 +40,17 @@ function game.new()
 	initial_nodes(node_list)
 	cam:lookAt(0, 0)
 
+
+	local function node_pattern_len(node_list)
+		return 3
+	end
+
+	local function node_spike(node_list)
+		return love.math.random() > 0.8
+	end
+	node_procedural.spike_callback = node_spike
+	node_procedural.pattern_len_callback = node_pattern_len
+
 	node_list.jumpCallback = function(node_list_arg)
 		node_procedural.genNext(node_list_arg)
 		node_procedural.cleanup(node_list_arg)

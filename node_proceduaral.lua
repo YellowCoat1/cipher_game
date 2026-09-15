@@ -157,8 +157,11 @@ function node_procedural.genNext(node_list)
 	-- add new nodes
 	local node_list_len = #node_list.nodes
 	for x_val,node_index in pairs(selected_x_vals) do
-		local spike = love.math.random() > 0.8
-		node_list.nodes[node_index+node_list_len] = node(tonumber(x_val), latest_y-300, 3, spike)
+		local spike_callback = node_procedural.spike_callback or function(_) return false end
+		local spike = spike_callback(node_list)
+		local pattern_len_callback = node_procedural.pattern_len_callback  or function(_) return 3 end
+		local pattern_len = pattern_len_callback(node_list)
+		node_list.nodes[node_index+node_list_len] = node(tonumber(x_val), latest_y-300, pattern_len, spike)
 	end
 
 

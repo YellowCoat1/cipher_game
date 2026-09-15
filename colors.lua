@@ -6,4 +6,9 @@ colors.cipher_secondary_color = {107/255, 128/255, 255/255}
 colors.negative_primary = {148/255,102/255,1/255}
 colors.negative_secondary = {238/255,226/255,0/255}
 
+
+function colors.with_opacity(color, opacity)
+	return {color[1], color[2], color[3], opacity}
+end
+
 return colors

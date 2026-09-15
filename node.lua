@@ -2,6 +2,8 @@ local ring_png = love.graphics.newImage("assets/ring_white.png")
 local ring_width, ring_height = ring_png:getWidth(), ring_png:getHeight()
 local arrow_png = love.graphics.newImage("assets/arrow.png")
 local arrow_width, arrow_height = arrow_png:getWidth(), arrow_png:getHeight()
+local spike_ring = love.graphics.newImage("assets/spike.png")
+local spike_width, spike_height = spike_ring:getWidth(), spike_ring:getHeight()
 
 local coal_color = {64/256, 64/256, 64/256}
 local cipher_main_color = {53/255, 74/255, 255/255}
@@ -24,7 +26,7 @@ end
 
 local random = love.math.random
 
-local function node(x, y, alen)
+local function node(x, y, alen, spike)
 	local node = {}
 	node.x = x or 100
 	node.y = y or 100
@@ -35,6 +37,7 @@ local function node(x, y, alen)
 	node.cooldown_multiplier = 1
 	node.active = false
 	node.completed_timer = 0
+	node.spike = spike or false
 
 	local hit_sound = love.audio.newSource("assets/hit.wav", "static")
 	local takeover_sound = love.audio.newSource('assets/takeover.wav', "static")
@@ -42,7 +45,10 @@ local function node(x, y, alen)
 
 
 	node.pattern = {}
-	alen = alen or 10
+	alen = alen or 4
+	if node.spike then
+		alen = math.floor(alen*1.5)
+	end
 	for _=1, alen do
 		table.insert(node.pattern, random(1, 4))
 	end
@@ -60,7 +66,12 @@ local function node(x, y, alen)
 		if self:completed() then
 			love.graphics.setColor(lerpColor(coal_color, cipher_secondary_color, self.completed_timer))
 		end
-		love.graphics.draw(ring_png, self.x, self.y, self.ring1_rotation, ring_scale, ring_scale, ring_width/2, ring_height/2)
+		if not self.spike then
+			love.graphics.draw(ring_png, self.x, self.y, self.ring1_rotation, ring_scale, ring_scale, ring_width/2, ring_height/2)
+		else
+			local spike_scale = 0.8*(ring_width*ring_scale)/spike_width
+			love.graphics.draw(spike_ring, self.x, self.y, self.ring1_rotation, spike_scale, spike_scale, spike_width/2, spike_height/2)
+		end
 		local arrow_direction = node.pattern[#node.pattern] or 1
 		local arrow_rotation
 		if arrow_direction == 1 then

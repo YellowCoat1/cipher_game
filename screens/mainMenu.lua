@@ -2,7 +2,8 @@ local Screen = require('screens.Screen')
 
 local MainScreen = {}
 
-local font = love.graphics.newFont(64, "normal")
+local font = love.graphics.newFont(FontName, 64)
+local font_tiny = love.graphics.newFont(FontName, 10)
 local square_dimensions = {
 	x = 100,
 	y = 300,
@@ -26,14 +27,14 @@ function MainScreen.new()
     function self:draw()
 	love.graphics.push()
 	love.graphics.setColor(0, 0, 0)
-        love.graphics.print("man i love main screens", 0, 0)
+        love.graphics.print("man i love main screens", font_tiny, 20, 5)
 
 	local opacity = self.fadeOut or 1
 	love.graphics.setColor(0.4, 0.4, 0.6, opacity)
 	love.graphics.rectangle("fill", square_dimensions.x, square_dimensions.y, square_dimensions.width, square_dimensions.height)
 	love.graphics.setColor(0.1, 0.1, 0.1, opacity)
 
-	love.graphics.print("play", font, square_dimensions.x+40, square_dimensions.y)
+	love.graphics.print("play", font, square_dimensions.x+40, 20+square_dimensions.y)
 	love.graphics.print("a dumbass cipher fanart game", font, 300, 100, 0.5, 0.5)
 
 	love.graphics.setColor(1, 1, 1, 1)

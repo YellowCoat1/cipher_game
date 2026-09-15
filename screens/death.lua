@@ -4,8 +4,8 @@ local death = {}
 local cipher_main_color = {53/255, 74/255, 255/255}
 local cipher_secondary_color = {107/255, 128/255, 255/255}
 
-local font = love.graphics.newFont(64, "normal")
-local smaller_font = love.graphics.newFont(40, "normal")
+local font = love.graphics.newFont(FontName, 64)
+local smaller_font = love.graphics.newFont(FontName, 40)
 
 local function round_hundreth(n)
 	return math.floor(n*1000)/1000
@@ -51,7 +51,7 @@ function death.new()
 			love.graphics.line(0, height*(3/7), width, height*(3/7))
 			love.graphics.line(0, height*(4/7), width, height*(4/7))
 			love.graphics.setColor(cipher_main_color)
-			love.graphics.print("restart", font, (width/2) - (font:getWidth("restart")/2), (height*(3.5/7)) - font:getHeight()/2)
+			love.graphics.print("restart", font, (width/2) - (font:getWidth("restart")/2), 10+(height*(3.5/7)) - font:getHeight()/2)
 
 			--love.graphics.setColor(0, 0, 0, 1)
 			--love.graphics.line(width/2, 0, width/2, height)

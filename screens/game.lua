@@ -30,7 +30,7 @@ function game.new()
 	local sea_increment = 0
 	local dead = false
 	local game_active_timer = 0
-	local font = love.graphics.newFont(32)
+	local font = love.graphics.newFont(FontName, 32)
 	if not GameMusic then
 		GameMusic = love.audio.newSource("assets/Serge Quadrado - Technocrat.mp3", "stream")
 		GameMusic:play()
@@ -62,7 +62,7 @@ function game.new()
 		if timer_string == "0" then
 			timer_string = "0.000"
 		end
-		love.graphics.print(timer_string, font, width-box_width+5, 0)
+		love.graphics.print(timer_string, font, width-box_width+5, 10)
 		love.graphics.setColor(0, 0, 1, 1)
 		love.graphics.line(width-box_width, 0, width-box_width, box_height)
 		love.graphics.line(width-box_width, box_height, width, box_height)

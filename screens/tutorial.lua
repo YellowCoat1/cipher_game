@@ -21,6 +21,7 @@ local function smoothLerp(start, endt, t)
   return Lerp(start, endt, t)
 end
 
+
 function tutorial.new()
 	local self = Screen:new()
 	self.phase = phases.BEFORE_NODE
@@ -37,6 +38,8 @@ function tutorial.new()
 	sea.ylevel = love.graphics.getHeight() + 50
 	self.rising_sea_timer = nil
 	self.node_completed = false
+
+	local font = love.graphics.newFont(FontName, 16)
 
 	local opacity_mod = require('opacity').new()
 	local new_set_opacity_timer
@@ -72,8 +75,8 @@ function tutorial.new()
 		love.graphics.line(width*(3/5), offset+60, width*(3/5)+200,offset+60)
 		love.graphics.line(width*(3/5)+200, offset+60, width*(3/5)+200, offset)
 		love.graphics.setColor(0, 0, 0, 1)
-		love.graphics.print("space -> jump", width*(3/5)+10, offset)
-		love.graphics.print("arrows -> select", width*(3/5)+10, offset+30)
+		love.graphics.print("space -> jump", font, width*(3/5)+10, 10+offset)
+		love.graphics.print("arrows -> select", font, width*(3/5)+10, 10+offset+30)
 	end
 
 	function self:update(dt)

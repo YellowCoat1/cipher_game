@@ -14,6 +14,8 @@ DialogueConfig = {
 
 SurvivedTime = 0
 
+FontName = "assets/hijo.regular.otf"
+
 function love.load()
 
 	local screens = {

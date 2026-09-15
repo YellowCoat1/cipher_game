@@ -7,8 +7,11 @@ local tutorial = {}
 
 local phases = {
 	BEFORE_NODE = 1,
-	BEFORE_SEA = 2,
-	AFTER_SEA = 3,
+	DURING_NODE = 2,
+	BEFORE_SEA = 3,
+	DURING_SEA = 4,
+	AFTER_SEA = 5,
+	BRANCHES = 6,
 }
 
 local function smoothLerp(start, endt, t)
@@ -49,6 +52,8 @@ function tutorial.new()
 			opacity_mod:detach()
 		end
 		sea:draw()
+
+		print(self.phase)
 	end
 
 	function self:update(dt)
@@ -98,6 +103,7 @@ function tutorial.new()
 	end
 
 	function self:tut1End()
+		self.phase = phases.DURING_NODE
 		local new_node = node(love.graphics.getWidth()/2, love.graphics.getHeight()/2, 3)
 		node_list:insert_node(new_node)
 		node_list:focused_node(1)
@@ -105,16 +111,19 @@ function tutorial.new()
 
 	function self:tut2Start()
 		self.dialog_scene = loveDialogue.play("scripts/tut2.ld", DialogueConfig)
+		self.phase = phases.BEFORE_SEA
 		self.dialog_scene.onSignal = function(name, _)
 			if name == "Tut2End" then
 				rising_sea_timer = 0
 				sea.ylevel = love.graphics.getHeight() + 10
 				self.rising_sea_timer = 0
+				self.phase = phases.DURING_SEA
 			end
 		end
 	end
 
 	function self:tut3Start()
+		self.phase = phases.AFTER_SEA
 		self.dialog_scene = loveDialogue.play("scripts/tut3.ld", {
 			boxHeight = 200,
 			boxWidth = 800,
@@ -132,6 +141,7 @@ function tutorial.new()
 	end
 
 	function self:new_branches()
+		self.phase = phases.BRANCHES
 		local new_node_2 = node(200+love.graphics.getWidth()/2, love.graphics.getHeight()*(1/3), 3)
 		local new_node_3 = node(-200+love.graphics.getWidth()/2, love.graphics.getHeight()*(1/3), 3)
 		node_list:insert_nodes(new_node_2, new_node_3)

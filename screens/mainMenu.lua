@@ -13,24 +13,13 @@ function MainScreen.new()
 
     local font = love.graphics.newFont(FontName, 64)
     local font_tiny = love.graphics.newFont(FontName, 10)
-    local square_dimensions
-    do
-    	local width, height = love.graphics.getDimensions()
-    	square_dimensions = {
-    		x = 1*width/5,
-    		y = 2*height/5,
-    		width = 400,
-    		height = 100,
-    	}
-    end
     local lynx = love.graphics.newImage("assets/Lynx.png")
     local lynx_width, lynx_height = lynx:getWidth(), lynx:getHeight()
 
 
-
     function self:draw()
     	local width, height = love.graphics.getDimensions()
-	square_dimensions = {
+	local square_dimensions = {
     		x = 1*width/5,
    	 	y = 2*height/5,
    	 	width = 400,

@@ -23,6 +23,7 @@ function love.load()
 		transition_out = require('screens.transition_out'),
 		transition_in = require('screens.transition_in'),
 		death = require('screens.death'),
+		lynx_note = require('screens.lynx_note')
 	}
 
 	ScreenManager.init(screens, 'manager')
@@ -54,4 +55,5 @@ end
 function love.update(dt)
 	ScreenManager.update(dt)
 	exit.update(dt)
+	--print(ScreenManager.peek().name)
 end

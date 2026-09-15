@@ -27,6 +27,7 @@ function death.new()
 	local restart_sfx = love.audio.newSource('assets/restart.wav', "static")
 	death_sfx:play()
 
+
 	function self:draw()
 		local width, height = love.graphics.getDimensions()
 		love.graphics.setColor(1, 0, 0, 1)

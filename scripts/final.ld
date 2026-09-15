@@ -3,7 +3,7 @@
 @voice lynx assets/Lynx.wav
 
 
-lynx: One last thing (srry couldn't find a place to put this)
-lynx: After completing a node, you can choose which one to jump to next
-lynx: Use the arrows to select, and space to jump
-[signal: TutFEnd]
+lynx: haiii!!! its lynx
+lynx: as a treat for ur first game, u can use p to skip the opening cutscene
+lynx: that's all for now. bye bye!!
+[signal: LynxEnd]

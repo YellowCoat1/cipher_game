@@ -26,6 +26,7 @@ function gameManager.new()
 			ScreenManager.pop()
 		elseif message == "died :(" then
 			ScreenManager.push("death")
+			ScreenManager.push('lynx_note')
 		elseif message == "restart" then
 			ScreenManager.pop()
 			ScreenManager.pop()

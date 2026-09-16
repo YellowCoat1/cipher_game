@@ -59,10 +59,10 @@ function game.new()
 			cap = cap - 0.1
 		end
 		if active_y > 2100 then
-			cap = cap - 0.1
+			cap = cap - 0.05
 		end
 		if active_y > 3600 then
-			cap = cap - 0.3
+			cap = cap - 0.1
 		end
 		return love.math.random() > cap
 	end

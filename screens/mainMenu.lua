@@ -51,7 +51,7 @@ function MainScreen.new()
 
 	love.graphics.print("play", font, play_button.x+play_button.width*(1/2)-font:getWidth("play")*(1/2), 20+play_button.y)
 	love.graphics.print("settings", font, settings_button.x+settings_button.width*(1/2)-font:getWidth("settings")*(1/2), 20+settings_button.y)
-	love.graphics.print("a dumbass cipher fanart game", font, width-600, height*(1/5), 0.5, 0.5)
+	love.graphics.print("a lil cipher fanart game", font, width-600, height*(1/5), 0.5, 0.5)
 
 	love.graphics.setColor(1, 1, 1, 1)
 	love.graphics.draw(lynx, love.graphics.getWidth()-100, love.graphics.getHeight()-100, self.lynx_rotation, 0.5, 0.5, lynx_width/2, lynx_height/2)
@@ -81,7 +81,7 @@ function MainScreen.new()
 		end
 	    end
 	    if x > settings_button.x and x < settings_button.x + settings_button.width and
-		    y > settings_button.y and y < settings_button.y + settings_button.height then
+		    y > settings_button.y and y < settings_button.y + settings_button.height and not self.fadeOut then
 		    ScreenManager.publish("settings")
 	    end
 

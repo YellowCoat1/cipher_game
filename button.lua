@@ -25,6 +25,7 @@ function button.new(x, y, width, height)
 	function self:mousereleased(mx, my, m)
 		if inRectangle(mx, my, self) and self.pressed and m == 1 then
 			(self.trigger or function() end)()
+			self.pressed = false
 		elseif self.pressed and m == 1 then
 			self.pressed = false
 		end

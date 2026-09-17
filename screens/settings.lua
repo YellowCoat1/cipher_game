@@ -14,6 +14,8 @@ function settings.new()
 	local self = screen:new()
 	local exit_button = button.new(1, 1, 1, 1)
 	local volume_slider =  slider.new(1, 1, 1, 1, 0.5)
+	local music_slider =  slider.new(1, 1, 1, 1, 0.5)
+	local sfx_slider =  slider.new(1, 1, 1, 1, 0.5)
 
 
 	function self:exit_button_calc()
@@ -29,6 +31,14 @@ function settings.new()
 		volume_slider.y = height*(1/5) + 50
 		volume_slider.width = 300
 		volume_slider.height = 40
+		music_slider.x = volume_slider.x
+		music_slider.y = volume_slider.y + 80
+		music_slider.width = volume_slider.width
+		music_slider.height = volume_slider.height
+		sfx_slider.x = volume_slider.x
+		sfx_slider.y = volume_slider.y + 160
+		sfx_slider.width = volume_slider.width
+		sfx_slider.height = volume_slider.height
 	end
 
 	function exit_button.draw()
@@ -66,12 +76,18 @@ function settings.new()
 		--love.graphics.print("settings", love.graphics.getWidth()/2, love.graphics.getHeight()/2)
 		exit_button:draw()
 		volume_slider:draw()
+		music_slider:draw()
+		sfx_slider:draw()
 		local y_offset = (volume_slider.height-font:getHeight())*(1/2)
 		love.graphics.print("Main Volume", font, volume_slider.x + volume_slider.width + 20, volume_slider.y+y_offset)
+		love.graphics.print("Music Volume", font, music_slider.x + music_slider.width + 20, music_slider.y+y_offset)
+		love.graphics.print("SFX Volume", font, sfx_slider.x + sfx_slider.width + 20, sfx_slider.y+y_offset)
 	end
 
 	function self:update()
 		volume_slider:update()
+		music_slider:update()
+		sfx_slider:update()
 
 		self:exit_button_calc()
 		self:sliders_calc()
@@ -88,11 +104,15 @@ function settings.new()
 	function self:mousepressed(x, y, m)
 		exit_button:mousepressed(x, y, m)
 		volume_slider:mousepressed(x, y, m)
+		music_slider:mousepressed(x, y, m)
+		sfx_slider:mousepressed(x, y, m)
 	end
 
 	function self:mousereleased(x, y, m)
 		exit_button:mousereleased(x, y, m)
 		volume_slider:mousereleased(x, y, m)
+		music_slider:mousereleased(x, y, m)
+		sfx_slider:mousereleased(x, y, m)
 	end
 
 	return self

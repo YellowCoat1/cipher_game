@@ -146,6 +146,16 @@ function node_list.new()
 		end
 	end
 
+	function self:find_upwards_connection(connections)
+		local xval = self.nodes[self.active_node].x
+		for i,v in ipairs(connections) do
+			local connection_x = self.nodes[v[2]].x
+			if connection_x == xval then
+				return i
+			end
+		end
+	end
+
 	function self:keypressed(key)
 		if self:completed() then
 			local connections, selected = self:selected_edge()
@@ -170,6 +180,9 @@ function node_list.new()
 				else
 					selectedNew = #connections
 				end
+			elseif key == "up" or key == "w" then
+				selectedNew = self:find_upwards_connection(connections)
+				if not selectedNew then return end
 			else
 				return
 			end

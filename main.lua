@@ -21,6 +21,7 @@ Settings = {}
 
 function love.load()
 	Settings.high_score = tonumber(highscore.get()) or Settings.high_score
+	Settings.high_score_spikes = tonumber(highscore.get_spike()) or Settings.high_score_spikes
 
 	DialogueConfig = {
 		boxHeight = 200,

@@ -35,16 +35,30 @@ function death.new()
 	local high_score = false
 
 
-	if not Settings.high_score then
-		Settings.high_score = SurvivedTime
-		highscore.set(SurvivedTime)
-		high_score = true
-	elseif Settings.high_score <= SurvivedTime then
-		Settings.high_score = SurvivedTime
-		highscore.set(SurvivedTime)
-		high_score = true
+	if not Settings.spikeys then
+		if not Settings.high_score then
+			Settings.high_score = SurvivedTime
+			highscore.set(SurvivedTime)
+			high_score = true
+		elseif Settings.high_score <= SurvivedTime then
+			Settings.high_score = SurvivedTime
+			highscore.set(SurvivedTime)
+			high_score = true
+		else
+			high_score = false
+		end
 	else
-		high_score = false
+		if not Settings.high_score_spikes then
+			Settings.high_score_spikes = SurvivedTime
+			highscore.set_spike(SurvivedTime)
+			high_score = true
+		elseif Settings.high_score_spikes <= SurvivedTime then
+			Settings.high_score_spikes = SurvivedTime
+			highscore.set_spike(SurvivedTime)
+			high_score = true
+		else
+			high_score = false
+		end
 	end
 
 	function self:draw()
@@ -60,7 +74,13 @@ function death.new()
 			love.graphics.setColor(cipher_secondary_color)
 			SurvivedTime = round_hundreth(SurvivedTime or 0)
 			love.graphics.print("Score: "..SurvivedTime, smaller_font, (width/2)-smaller_font:getWidth("Score: "..SurvivedTime)/2, height/5+height/10)
-			love.graphics.print("Highscore: "..round_hundreth(Settings.high_score), smaller_font, (width/2)-smaller_font:getWidth("Highscore: "..round_hundreth(Settings.high_score))/2, height/5+height/10 + smaller_font:getHeight() + 10)
+			local hs_text
+			if Settings.spikeys then
+				hs_text = Settings.high_score_spikes
+			else
+				hs_text = Settings.high_score
+			end
+			love.graphics.print("Highscore: "..round_hundreth(hs_text), smaller_font, (width/2)-smaller_font:getWidth("Highscore: "..round_hundreth(Settings.high_score))/2, height/5+height/10 + smaller_font:getHeight() + 10)
 			-- high score
 			if high_score then
 				love.graphics.print("High Score!", smaller_font, width*(9/11), height*(1/5), math.sin(time*5)*0.4, 1+math.cos(time*5)*(1/4), _, smaller_font:getWidth("High Score!")/2, smaller_font:getHeight()/2)

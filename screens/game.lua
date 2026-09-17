@@ -135,14 +135,14 @@ function game.new()
 
 		local sea_increment_change
 		if game_active_timer < 10 then
-			-- for the first 10 seconds, speed increases by 8 per second
-			sea_increment_change = 8*game_active_timer*dt
-		elseif game_active_timer < 30 then
-			-- then up to 30, it increases by 2 per second
-			sea_increment_change = (7*10*dt) + (2*(game_active_timer-15)*dt)
+			-- for the first 10 seconds, speed increases by 5 per second
+			sea_increment_change = 5*game_active_timer*dt
+		elseif game_active_timer < 15 then
+			-- then up to 15, it increases by 3 per second
+			sea_increment_change = (5*10*dt) + (3*(game_active_timer-15)*dt)
 		else
-			-- for the rest of the game, it increases by 1 per second
-			sea_increment_change = (7*10*dt) + (3*15*dt) + (1*(game_active_timer-30)*dt)
+			-- for the rest of the game, it increases by 0.5 per second
+			sea_increment_change = (5*10*dt) + (3*15*dt) + (0.5*(game_active_timer-30)*dt)
 		end
 
 		sea_increment_change = sea_increment_change + 40*dt -- constant factor

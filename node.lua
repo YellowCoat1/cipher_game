@@ -101,8 +101,8 @@ local function node(x, y, alen, spike)
 			ring_speed = 1
 		end
 		self.ring1_rotation = self.ring1_rotation + ring_speed*dt
-		self.centerOffsetX = self.centerOffsetX * math.pow(0.5, dt / 0.1)
-		self.centerOffsetY = self.centerOffsetY * math.pow(0.5, dt / 0.1)
+		self.centerOffsetX = self.centerOffsetX * math.pow(0.5, dt / 0.15)
+		self.centerOffsetY = self.centerOffsetY * math.pow(0.5, dt / 0.15)
 		if self.cooldown_timer > 0 then
 			self.cooldown_timer = self.cooldown_timer - dt
 		end

@@ -3,7 +3,6 @@ local node_procedural = {}
 
 local random = love.math.random
 function node_procedural.genNext(node_list)
-
 	local initial_node_list_num = #node_list.nodes
 	local latest_y = node_list.nodes[#node_list.nodes].y
 	local top_row_indexes = {}

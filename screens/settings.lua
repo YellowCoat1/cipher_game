@@ -1,24 +1,15 @@
 local screen = require 'screens.Screen'
 local colors = require 'colors'
+local button = require 'button'
 
 local coal_color = colors.coal_color
 local settings = {}
-
-local function inRectangle(x, y, rect)
-	if x > rect.x and x < rect.x + rect.width and y > rect.y and y < rect.y + rect.height then
-		return true
-	else
-		return false
-	end
-
-end
-
 
 local line = love.graphics.line
 
 function settings.new()
 	local self = screen:new()
-	local exit_button = {}
+	local exit_button = button.new(1, 1, 1, 1)
 
 	function self:exit_button_calc()
 		local width, height = love.graphics.getDimensions()
@@ -28,8 +19,7 @@ function settings.new()
 		exit_button.height = 50
 	end
 
-	function self:exit_button_draw()
-		local line = love.graphics.line
+	function exit_button.draw()
 		love.graphics.setColor(0, 0, 0, 1)
 		love.graphics.rectangle("line", exit_button.x, exit_button.y, exit_button.width, exit_button.height)
 		line(exit_button.x + 10, exit_button.y + 10, exit_button.x+exit_button.width - 10, exit_button.y+exit_button.width - 10)
@@ -43,7 +33,6 @@ function settings.new()
 	self:exit_button_calc()
 
 	function self:draw()
-		self:exit_button_calc()
 		love.graphics.setColor(colors.with_opacity(coal_color, 0.95))
 		local width, height = love.graphics.getDimensions()
 		love.graphics.rectangle("fill", width*(1/5), height*(1/5), width*(3/5), height*(3/5))
@@ -57,7 +46,7 @@ function settings.new()
 		love.graphics.setColor(1, 0, 0, 1)
 		love.graphics.setLineWidth(1)
 		--love.graphics.print("settings", love.graphics.getWidth()/2, love.graphics.getHeight()/2)
-		self:exit_button_draw()
+		exit_button:draw()
 	end
 
 	function self:update()
@@ -73,20 +62,11 @@ function settings.new()
 	end
 
 	function self:mousepressed(x, y, m)
-		if inRectangle(x, y, exit_button) and m == 1 then
-			exit_button.pressed = true
-		end
+		exit_button:mousepressed(x, y, m)
 	end
 
 	function self:mousereleased(x, y, m)
-		if inRectangle(x, y, exit_button) and m == 1 then
-			if exit_button.pressed then
-				ScreenManager.publish('settings_exit')
-			end
-			exit_button.pressed = false
-		elseif m == 1 then
-			exit_button.pressed = false
-		end
+		exit_button:mousereleased(x, y, m)
 	end
 
 	return self

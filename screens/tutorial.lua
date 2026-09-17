@@ -39,7 +39,6 @@ function tutorial.new()
 	sea.ylevel = love.graphics.getHeight() + 50
 	self.rising_sea_timer = nil
 	self.node_completed = false
-	Settings.skip_tutorial = true
 
 	local font = love.graphics.newFont(FontName, 16)
 
@@ -106,6 +105,7 @@ function tutorial.new()
 		if node_list:completed() then
 			if node_list.active_node > 1 and not self.node_completed_2 then
 				ScreenManager.publish("tutorial_end")
+				Settings.skip_tutorial = true
 				self.node_completed_2 = true
 			end
 		end

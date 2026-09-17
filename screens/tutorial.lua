@@ -167,6 +167,7 @@ function tutorial.new()
 
 	function self:tut1End()
 		self.phase = phases.DURING_NODE
+		self.dialog_scene = nil
 		local new_node = node(love.graphics.getWidth()/2, love.graphics.getHeight()/2, 3)
 		node_list:insert_node(new_node)
 		node_list:focused_node(1)
@@ -184,6 +185,7 @@ function tutorial.new()
 
 	function self:begin_sea_rising()
 		self.phase = phases.DURING_SEA
+		self.dialog_scene = nil
 		rising_sea_timer = 0
 		sea.ylevel = love.graphics.getHeight() + 10
 		self.rising_sea_timer = 0
@@ -202,6 +204,7 @@ function tutorial.new()
 
 	function self:new_branches()
 		self.phase = phases.BRANCHES
+		self.dialog_scene = nil
 		branches_tip_timer = 0
 		local new_node_2 = node(200+love.graphics.getWidth()/2, love.graphics.getHeight()*(1/3), 3)
 		local new_node_3 = node(-200+love.graphics.getWidth()/2, love.graphics.getHeight()*(1/3), 3)

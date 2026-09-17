@@ -103,13 +103,15 @@ function game.new()
 
 	function self:trailed_x_offset() --calc x offset if the player is deciding the next path
 		local connections, selected = node_list:selected_edge()
-		local total = #connections
-		if total > 1 and selected  then
-			return Lerp(-50, 50, (selected-1)/(total-1))
+		if not connections then return end
+		local focus_x = node_list.nodes[node_list.active_node].x
+		local xdiff
+		if selected then
+			xdiff = node_list.nodes[connections[selected][2]].x - focus_x
 		else
-			return 0
+			xdiff = 0
 		end
-
+		return xdiff / 6
 	end
 
 	function self:update(dt)

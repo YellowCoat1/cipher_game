@@ -24,7 +24,7 @@ function exit.draw()
 
 	-- draw a little circle
 	local sin, cos = math.sin((math.pi*exit.timer*2)-(math.pi/2)), math.cos((math.pi*exit.timer*2)-(math.pi/2))
-	local startx, starty = love.graphics.getWidth()-70, 70
+	local startx, starty = 70, 70
 	local radius, border = 40, 5
 	love.graphics.line(startx+cos*radius, starty+sin*radius, startx+cos*(radius+border), starty+sin*(radius+border))
 

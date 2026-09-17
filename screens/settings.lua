@@ -17,6 +17,7 @@ function settings.new()
 	local music_slider =  slider.new(1, 1, 1, 1, (Settings.music_volume or 4/3)*3/4)
 	local sfx_slider =  slider.new(1, 1, 1, 1, (Settings.sfx_volume or 4/3)*3/4)
 	local spikes_toggle = button.new(1, 1, 1, 1)
+	spikes_toggle.active = Settings.spikeys
 
 	self.name = "settings"
 

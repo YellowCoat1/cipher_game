@@ -30,6 +30,10 @@ function settings.new()
 		end
 	end
 
+	function exit_button.trigger()
+		ScreenManager.publish("settings_exit")
+	end
+
 	self:exit_button_calc()
 
 	function self:draw()

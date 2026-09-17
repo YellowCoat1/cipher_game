@@ -5,11 +5,11 @@ local sea_mod = require('sea')
 local node_procedural = require 'node_proceduaral'
 
 local function initial_nodes(node_list)
-	local node1 = node(0, 0, 2)
-	local node2 = node(-200, -300, 2)
-	local node3 = node(200, -300, 2)
-	local node4 = node(-200, -600, 2)
-	local node5 = node(200, -600, 2)
+	local node1 = node(0, 0, 2, Settings.spikeys)
+	local node2 = node(-200, -300, 2, Settings.spikeys)
+	local node3 = node(200, -300, 2, Settings.spikeys)
+	local node4 = node(-200, -600, 2, Settings.spikeys)
+	local node5 = node(200, -600, 2, Settings.spikeys)
 	node_list:insert_nodes(node1, node2, node3, node4, node5)
 	node_list:insert_connection(1, 2, false)
 	node_list:insert_connection(1, 3, false)
@@ -52,6 +52,7 @@ function game.new()
 
 	local function node_spike(node_list_t)
 		if not node_list_t.active_node then return false end
+		if Settings.spikeys then return true end
 		local active_y = -node_list_t.nodes[node_list.active_node].y
 
 		local cap = 0.90

@@ -94,6 +94,10 @@ local function node(x, y, alen, spike)
 	end
 
 	function node:update(dt)
+
+		hit_sound:setVolume((Settings.main_volume or 1)*(Settings.sfx_volume or 1))
+		takeover_sound:setVolume((Settings.main_volume or 1)*(Settings.sfx_volume or 1))
+		wrong_sound:setVolume((Settings.main_volume or 1)*(Settings.sfx_volume or 1))
 		local ring_speed
 		if node.active then
 			ring_speed = 5

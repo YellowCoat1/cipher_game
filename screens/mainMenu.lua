@@ -67,6 +67,7 @@ function MainScreen.new()
 		    end
 	    end
 	    self.lynx_rotation = self.lynx_rotation + 5*dt
+	    bg_music:setVolume((Settings.main_volume or 1) * (Settings.music_volume or 1))
     end
 
     function self:close()

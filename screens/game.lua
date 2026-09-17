@@ -113,6 +113,10 @@ function game.new()
 
 	function self:update(dt)
 		node_list:update(dt)
+
+		if GameMusic then
+			GameMusic:setVolume((Settings.main_volume or 1)*(Settings.music_volume or 1))
+		end
 		if ScreenManager.peek().name ~= "game" then return end
 		if dead then return end
 		sea:update(dt)

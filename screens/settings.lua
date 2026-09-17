@@ -13,9 +13,9 @@ local font = love.graphics.newFont(FontName, 24)
 function settings.new()
 	local self = screen:new()
 	local exit_button = button.new(1, 1, 1, 1)
-	local volume_slider =  slider.new(1, 1, 1, 1, 0.75)
-	local music_slider =  slider.new(1, 1, 1, 1, 0.75)
-	local sfx_slider =  slider.new(1, 1, 1, 1, 0.75)
+	local volume_slider =  slider.new(1, 1, 1, 1, (Settings.main_volume or 4/3)*3/4)
+	local music_slider =  slider.new(1, 1, 1, 1, (Settings.music_volume or 4/3)*3/4)
+	local sfx_slider =  slider.new(1, 1, 1, 1, (Settings.sfx_volume or 4/3)*3/4)
 	local spikes_toggle = button.new(1, 1, 1, 1)
 
 
@@ -116,6 +116,8 @@ function settings.new()
 		self:exit_button_calc()
 		self:sliders_calc()
 		self:spike_button_calc()
+
+		self:update_settings()
 	end
 
 	function self:update_settings()

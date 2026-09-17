@@ -94,6 +94,7 @@ function node_list.new()
 	end
 
 	function self:update(dt)
+		slide:setVolume((Settings.main_volume or 1)*(Settings.sfx_volume or 1))
 		for _,single_node in ipairs(self.nodes) do
 			single_node:update(dt)
 		end

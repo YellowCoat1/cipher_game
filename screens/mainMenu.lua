@@ -45,6 +45,7 @@ function MainScreen.new()
     self:calc_buttons()
 
     function self:draw()
+
     	local width, height = love.graphics.getDimensions()
 	love.graphics.push()
 	love.graphics.setColor(0, 0, 0)

@@ -38,6 +38,10 @@ function gameManager.new()
 			ScreenManager.push("settings")
 		elseif message == "settings_exit" then
 			ScreenManager.pop()
+		elseif message == "exit_to_main" then
+			ScreenManager.switch("manager")
+			ScreenManager.push("scrollingBG")
+			ScreenManager.push("main")
 		end
 	end
 	return self

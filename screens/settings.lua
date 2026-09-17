@@ -18,6 +18,9 @@ function settings.new()
 	local sfx_slider =  slider.new(1, 1, 1, 1, (Settings.sfx_volume or 4/3)*3/4)
 	local spikes_toggle = button.new(1, 1, 1, 1)
 
+	self.name = "settings"
+
+
 
 	function self:exit_button_calc()
 		local width, height = love.graphics.getDimensions()

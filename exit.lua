@@ -10,8 +10,10 @@ function exit.load()
 	font = love.graphics.newFont(25)
 end
 
+local triggered = false
 
 function exit.draw()
+	if triggered then return end
 	love.graphics.setCanvas(canvas)
 	if exit.timer == 0 then
 		love.graphics.clear()
@@ -34,14 +36,21 @@ function exit.draw()
 end
 
 function exit.update(dt)
-	if love.keyboard.isDown('escape') then
+	local active_name = ScreenManager.peek().name
+	if active_name == "main menu" or active_name == "settings" then return end
+	if love.keyboard.isDown('escape') and not triggered then
 		exit.timer = exit.timer + (1/3)*dt
 	else
 		exit.timer = 0
+		if not love.keyboard.isDown('escape') then
+			triggered = false
+		end
 	end
 
 	if exit.timer >= 1 then
-		love.event.quit(1)
+		ScreenManager.publish("exit_to_main")
+		if GameMusic then GameMusic:stop() end
+		triggered = true
 	end
 end
 

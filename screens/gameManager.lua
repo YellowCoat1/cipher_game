@@ -9,7 +9,7 @@ function gameManager.new()
 	function self:receive(message)
 		if message == "mainMenuStart" then
 			ScreenManager.pop()
-			if love.keyboard.isDown("p") then
+			if love.keyboard.isDown("p") or Settings.skip_tutorial then
 				ScreenManager.push("game")
 				ScreenManager.push("transition_in")
 				LynxNoteValid = false

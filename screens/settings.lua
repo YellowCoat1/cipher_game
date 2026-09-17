@@ -17,6 +17,7 @@ function settings.new()
 	local music_slider =  slider.new(1, 1, 1, 1, (Settings.music_volume or 4/3)*3/4)
 	local sfx_slider =  slider.new(1, 1, 1, 1, (Settings.sfx_volume or 4/3)*3/4)
 	local spikes_toggle = button.new(1, 1, 1, 1)
+	local skip_tutorial = button.new(1, 1, 1, 1)
 	spikes_toggle.active = Settings.spikeys
 
 	self.name = "settings"
@@ -31,11 +32,16 @@ function settings.new()
 		exit_button.height = 50
 	end
 	function self:spike_button_calc()
-		local width, height = love.graphics.getDimensions()
 		spikes_toggle.x = sfx_slider.x
 		spikes_toggle.y = sfx_slider.y + 80
 		spikes_toggle.width = 40
 		spikes_toggle.height = 40
+	end
+	function self:skip_tutorial_calc()
+		skip_tutorial.x = sfx_slider.x
+		skip_tutorial.y = spikes_toggle.y + 80
+		skip_tutorial.width = 40
+		skip_tutorial.height = 40
 	end
 	function self:sliders_calc()
 		local width, height = love.graphics.getDimensions()
@@ -73,16 +79,30 @@ function settings.new()
 		end
 	end
 
+	function skip_tutorial.draw()
+		love.graphics.setColor(0, 0, 0, 1)
+		love.graphics.rectangle("line", skip_tutorial.x, skip_tutorial.y, skip_tutorial.width, skip_tutorial.height)
+		if Settings.skip_tutorial then
+			love.graphics.setColor(0, 0, 0, 0.4)
+			love.graphics.rectangle("fill", skip_tutorial.x, skip_tutorial.y, skip_tutorial.width, skip_tutorial.height)
+		end
+	end
+
+
 	function exit_button.trigger()
 		ScreenManager.publish("settings_exit")
 	end
 	function spikes_toggle.trigger()
 		spikes_toggle.active = not spikes_toggle.active
 	end
+	function skip_tutorial.trigger()
+		Settings.skip_tutorial = not Settings.skip_tutorial
+	end
 
 	self:exit_button_calc()
 	self:sliders_calc()
 	self:spike_button_calc()
+	self:skip_tutorial_calc()
 	love.graphics.setColor(0, 0, 0, 1)
 
 	function self:draw()
@@ -104,12 +124,14 @@ function settings.new()
 		music_slider:draw()
 		sfx_slider:draw()
 		spikes_toggle.draw()
+		skip_tutorial.draw()
 		local y_offset = (volume_slider.height-font:getHeight())*(1/2)
 		love.graphics.setColor(0, 0, 0, 1)
 		love.graphics.print("Main Volume", font, volume_slider.x + volume_slider.width + 20, volume_slider.y+y_offset)
 		love.graphics.print("Music Volume", font, music_slider.x + music_slider.width + 20, music_slider.y+y_offset)
 		love.graphics.print("SFX Volume", font, sfx_slider.x + sfx_slider.width + 20, sfx_slider.y+y_offset)
 		love.graphics.print("Spike Hell", font, spikes_toggle.x + spikes_toggle.width + 20, spikes_toggle.y+y_offset)
+		love.graphics.print("Skip Tutorial", font, skip_tutorial.x + skip_tutorial.width + 20, skip_tutorial.y+y_offset)
 	end
 
 	function self:update()
@@ -120,6 +142,7 @@ function settings.new()
 		self:exit_button_calc()
 		self:sliders_calc()
 		self:spike_button_calc()
+		self:skip_tutorial_calc()
 
 		self:update_settings()
 	end
@@ -134,6 +157,7 @@ function settings.new()
 	function self:mousepressed(x, y, m)
 		exit_button:mousepressed(x, y, m)
 		spikes_toggle:mousepressed(x, y, m)
+		skip_tutorial:mousepressed(x, y, m)
 		volume_slider:mousepressed(x, y, m)
 		music_slider:mousepressed(x, y, m)
 		sfx_slider:mousepressed(x, y, m)
@@ -142,6 +166,7 @@ function settings.new()
 	function self:mousereleased(x, y, m)
 		exit_button:mousereleased(x, y, m)
 		spikes_toggle:mousereleased(x, y, m)
+		skip_tutorial:mousereleased(x, y, m)
 		volume_slider:mousereleased(x, y, m)
 		music_slider:mousereleased(x, y, m)
 		sfx_slider:mousereleased(x, y, m)

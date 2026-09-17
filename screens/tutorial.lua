@@ -39,6 +39,7 @@ function tutorial.new()
 	sea.ylevel = love.graphics.getHeight() + 50
 	self.rising_sea_timer = nil
 	self.node_completed = false
+	Settings.skip_tutorial = true
 
 	local font = love.graphics.newFont(FontName, 16)
 

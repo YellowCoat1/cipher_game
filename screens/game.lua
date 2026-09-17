@@ -34,6 +34,8 @@ function game.new()
 	if not GameMusic then
 		GameMusic = love.audio.newSource("assets/Serge Quadrado - Technocrat.mp3", "stream")
 		GameMusic:play()
+	elseif GameMusic:isPlaying() == false then
+		GameMusic:play()
 	end
 
 	local node_list = require('node_list').new()

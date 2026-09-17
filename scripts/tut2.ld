@@ -8,9 +8,9 @@
 
 
 chipher: lmao nice
-chipher: why did they have 11 terabytes of pear jpegs.
+chipher: why did they have 11 terabytes of brussel sprout jpegs.
 evil: it was ME
-evil: pears are WAY better than peaches
-chipher: yeah no, that wrong
-evil: aight im getting ur ass
+evil: brussel sprouts are WAY better than peaches
+chipher: im sorry to tell you but that's objectively wrong
+evil: im sending you to eeby deeby
 [signal: Tut2End]

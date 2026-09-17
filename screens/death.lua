@@ -8,6 +8,8 @@ local cipher_secondary_color = colors.cipher_secondary_color
 local font = love.graphics.newFont(FontName, 64)
 local smaller_font = love.graphics.newFont(FontName, 40)
 
+local highscore = require 'highscore_fs'
+
 local function round_hundreth(n)
 	return math.floor(n*1000)/1000
 end
@@ -32,17 +34,18 @@ function death.new()
 
 	local high_score = false
 
+
 	if not Settings.high_score then
 		Settings.high_score = SurvivedTime
+		highscore.set(SurvivedTime)
 		high_score = true
 	elseif Settings.high_score <= SurvivedTime then
 		Settings.high_score = SurvivedTime
+		highscore.set(SurvivedTime)
 		high_score = true
 	else
 		high_score = false
 	end
-	
-
 
 	function self:draw()
 		local width, height = love.graphics.getDimensions()

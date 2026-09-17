@@ -1,4 +1,5 @@
 ScreenManager = require("libs.ScreenManager")
+local highscore = require 'highscore_fs'
 local exit = require 'exit'
 
 LynxNoteValid = true
@@ -19,6 +20,7 @@ FontName = "assets/hijo.regular.otf"
 Settings = {}
 
 function love.load()
+	Settings.high_score = tonumber(highscore.get()) or Settings.high_score
 
 	DialogueConfig = {
 		boxHeight = 200,

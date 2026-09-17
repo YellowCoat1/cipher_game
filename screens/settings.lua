@@ -13,9 +13,9 @@ local font = love.graphics.newFont(FontName, 24)
 function settings.new()
 	local self = screen:new()
 	local exit_button = button.new(1, 1, 1, 1)
-	local volume_slider =  slider.new(1, 1, 1, 1, 0.5)
-	local music_slider =  slider.new(1, 1, 1, 1, 0.5)
-	local sfx_slider =  slider.new(1, 1, 1, 1, 0.5)
+	local volume_slider =  slider.new(1, 1, 1, 1, 0.75)
+	local music_slider =  slider.new(1, 1, 1, 1, 0.75)
+	local sfx_slider =  slider.new(1, 1, 1, 1, 0.75)
 	local spikes_toggle = button.new(1, 1, 1, 1)
 
 
@@ -118,12 +118,11 @@ function settings.new()
 		self:spike_button_calc()
 	end
 
-	function self:keypressed()
-
-	end
-
-	function self:keyreleased()
-
+	function self:update_settings()
+		Settings.spikeys = spikes_toggle.active
+		Settings.main_volume = volume_slider.slider_percent*(4/3)
+		Settings.music_volume = music_slider.slider_percent*(4/3)
+		Settings.sfx_volume = sfx_slider.slider_percent*(4/3)
 	end
 
 	function self:mousepressed(x, y, m)

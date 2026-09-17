@@ -16,6 +16,8 @@ SurvivedTime = 0
 
 FontName = "assets/hijo.regular.otf"
 
+Settings = {}
+
 function love.load()
 
 	DialogueConfig = {

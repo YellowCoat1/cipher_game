@@ -82,6 +82,14 @@ function tutorial.new()
 
 	function self:update(dt)
 		sea:update(dt)
+
+		-- messed up evil shenanagains
+		local voice_volume = (Settings.main_volume or 1) * (Settings.sfx_volume or 1)
+		if self.dialog_scene then
+			self.dialog_scene.state.characters.chipher.voice:setVolume(voice_volume)
+			self.dialog_scene.state.characters.evil.voice:setVolume(voice_volume)
+		end
+
 		if self.dialog_scene then self.dialog_scene:update(dt) end
 
 		if new_set_opacity_timer then

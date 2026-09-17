@@ -16,7 +16,7 @@ function MainScreen.new()
     local lynx = love.graphics.newImage("assets/Lynx.png")
     local lynx_width, lynx_height = lynx:getWidth(), lynx:getHeight()
 
-    local play_button, settings_button
+    local play_button, settings_button, exit_button
 
     function self:calc_buttons()
     	local width, height = love.graphics.getDimensions()
@@ -32,6 +32,13 @@ function MainScreen.new()
    	 	width = 400,
    	 	height = 100
    	 }
+
+	exit_button = {
+    		x = 1*width/5,
+   	 	y = 300 + 2*height/5,
+   	 	width = 400,
+   	 	height = 100
+	}
     end
 
 
@@ -47,10 +54,12 @@ function MainScreen.new()
 	love.graphics.setColor(0.4, 0.4, 0.6, opacity)
 	love.graphics.rectangle("fill", play_button.x, play_button.y, play_button.width, play_button.height)
 	love.graphics.rectangle("fill", settings_button.x, settings_button.y, settings_button.width, settings_button.height)
+	love.graphics.rectangle("fill", exit_button.x, exit_button.y, exit_button.width, exit_button.height)
 	love.graphics.setColor(0.1, 0.1, 0.1, opacity)
 
 	love.graphics.print("play", font, play_button.x+play_button.width*(1/2)-font:getWidth("play")*(1/2), 20+play_button.y)
 	love.graphics.print("settings", font, settings_button.x+settings_button.width*(1/2)-font:getWidth("settings")*(1/2), 20+settings_button.y)
+	love.graphics.print("exit", font, exit_button.x+exit_button.width*(1/2)-font:getWidth("exit")*(1/2), 20+exit_button.y)
 	love.graphics.print("a lil cipher fanart game", font, width-600, height*(1/5), 0.5, 0.5)
 
 	love.graphics.setColor(1, 1, 1, 1)
@@ -86,6 +95,10 @@ function MainScreen.new()
 		    ScreenManager.publish("settings")
 	    end
 
+	    if x > exit_button.x and x < exit_button.x + exit_button.width and
+		    y > exit_button.y and y < exit_button.y + exit_button.height and not self.fadeOut then
+		    love.event.quit(1)
+	    end
     end
 
     return self

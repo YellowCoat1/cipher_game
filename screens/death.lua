@@ -32,6 +32,14 @@ function death.new()
 	local restart_sfx = love.audio.newSource('assets/restart.wav', "static")
 	death_sfx:play()
 
+
+	GameMusic:setFilter({
+		type = "lowpass",
+		volume = .5,
+		highgain = 0.3,
+	})
+
+
 	local high_score = false
 
 
@@ -137,6 +145,11 @@ function death.new()
 			death_timer = death_timer_max
 		end
 	end
+
+	function self:close()
+		GameMusic:setFilter()
+	end
+
 	return self
 end
 

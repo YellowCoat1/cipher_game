@@ -48,7 +48,8 @@ local function node(x, y, alen, spike)
 	node.pattern = {}
 	alen = alen or 4
 	if node.spike then
-		alen = math.floor(alen*1.5)
+		local spike_hell_factor = Settings.spikeys and 1.4 or 1
+		alen = math.floor(alen*1.5*spike_hell_factor)
 	end
 	for _=1, alen do
 		table.insert(node.pattern, random(1, 4))

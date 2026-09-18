@@ -4,5 +4,5 @@ function love.conf(t)
 	t.window.height = 900
 	t.window.width = 1200
 	t.window.title = "cipher game"
-	t.window.title = "assets/cipher.png"
+	t.window.icon = "assets/cipher.png"
 end

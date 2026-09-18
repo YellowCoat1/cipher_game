@@ -2,8 +2,10 @@ local screen = require 'screens.Screen'
 local colors = require 'colors'
 local button = require 'button'
 local slider = require 'slider'
+local highscore_fs = require 'highscore_fs'
 
 local coal_color = colors.coal_color
+local cipher_secondary_color = colors.cipher_secondary_color
 local settings = {}
 
 local line = love.graphics.line
@@ -18,10 +20,10 @@ function settings.new()
 	local sfx_slider =  slider.new(1, 1, 1, 1, (Settings.sfx_volume or 4/3)*3/4)
 	local spikes_toggle = button.new(1, 1, 1, 1)
 	local skip_tutorial = button.new(1, 1, 1, 1)
+	local reset_score = button.new(1, 1, 1, 1)
 	spikes_toggle.active = Settings.spikeys
 
 	self.name = "settings"
-
 
 
 	function self:exit_button_calc()
@@ -42,6 +44,12 @@ function settings.new()
 		skip_tutorial.y = spikes_toggle.y + 80
 		skip_tutorial.width = 40
 		skip_tutorial.height = 40
+	end
+	function self:reset_score_calc()
+		reset_score.x = sfx_slider.x
+		reset_score.y = skip_tutorial.y + 80
+		reset_score.width = 250
+		reset_score.height = 40
 	end
 	function self:sliders_calc()
 		local width, height = love.graphics.getDimensions()
@@ -88,6 +96,47 @@ function settings.new()
 		end
 	end
 
+	function reset_score.draw()
+		love.graphics.setColor(0, 0, 0, 1)
+		local line_width = 5
+		love.graphics.setLineWidth(line_width)
+		love.graphics.rectangle("line", reset_score.x, reset_score.y, reset_score.width, reset_score.height)
+		local filledp = reset_score.timer or 0
+		love.graphics.setColor(colors.with_opacity(cipher_secondary_color, 0.4))
+		love.graphics.rectangle("fill", reset_score.x+line_width/2, reset_score.y+line_width/2, filledp*(reset_score.width-line_width), reset_score.height-line_width)
+		love.graphics.setColor(0, 0, 0, 1)
+		local text_width = font:getWidth("Reset Score")
+		love.graphics.print("Reset Score", font, reset_score.x+(reset_score.width/2)-(text_width/2), reset_score.y+10)
+
+		if (reset_score.feedback_timer or 0) > 0 then
+			love.graphics.setColor(cipher_secondary_color)
+			love.graphics.print("Reset!", font, reset_score.x+reset_score.width+50, reset_score.y+10)
+		end
+	end
+
+	function reset_score.update(dt)
+		if reset_score.pressed then
+			reset_score.timer = math.min((reset_score.timer or 0) + 0.4*dt, 1)
+		else
+			reset_score.timer = 0
+		end
+
+		if reset_score.timer == 1 then
+			reset_score.pressed = false
+			reset_score.timer = 0
+			reset_score.feedback_timer = 2
+			if reset_score.trigger then
+				reset_score.trigger2()
+			end
+			print("trigger")
+		end
+
+		if reset_score.feedback_timer then
+			reset_score.feedback_timer = math.max(0, reset_score.feedback_timer - dt)
+		end
+
+	end
+
 
 	function exit_button.trigger()
 		ScreenManager.publish("settings_exit")
@@ -98,11 +147,19 @@ function settings.new()
 	function skip_tutorial.trigger()
 		Settings.skip_tutorial = not Settings.skip_tutorial
 	end
+	function reset_score.trigger2()
+		print("trigger!")
+		--highscore_fs.set(0)
+		--Settings.high_score = 0
+		--highscore_fs.set_spike(0)
+		--Settings.high_score_spikes = 0
+	end
 
 	self:exit_button_calc()
 	self:sliders_calc()
 	self:spike_button_calc()
 	self:skip_tutorial_calc()
+	self:reset_score_calc()
 	love.graphics.setColor(0, 0, 0, 1)
 
 	function self:draw()
@@ -125,6 +182,7 @@ function settings.new()
 		sfx_slider:draw()
 		spikes_toggle.draw()
 		skip_tutorial.draw()
+		reset_score:draw()
 		local y_offset = (volume_slider.height-font:getHeight())*(1/2)
 		love.graphics.setColor(0, 0, 0, 1)
 		love.graphics.print("Main Volume", font, volume_slider.x + volume_slider.width + 20, volume_slider.y+y_offset)
@@ -134,7 +192,7 @@ function settings.new()
 		love.graphics.print("Skip Tutorial", font, skip_tutorial.x + skip_tutorial.width + 20, skip_tutorial.y+y_offset)
 	end
 
-	function self:update()
+	function self:update(dt)
 		volume_slider:update()
 		music_slider:update()
 		sfx_slider:update()
@@ -143,6 +201,9 @@ function settings.new()
 		self:sliders_calc()
 		self:spike_button_calc()
 		self:skip_tutorial_calc()
+		self:reset_score_calc()
+
+		reset_score.update(dt)
 
 		self:update_settings()
 	end
@@ -161,6 +222,7 @@ function settings.new()
 		volume_slider:mousepressed(x, y, m)
 		music_slider:mousepressed(x, y, m)
 		sfx_slider:mousepressed(x, y, m)
+		reset_score:mousepressed(x, y, m)
 	end
 
 	function self:mousereleased(x, y, m)
@@ -170,6 +232,7 @@ function settings.new()
 		volume_slider:mousereleased(x, y, m)
 		music_slider:mousereleased(x, y, m)
 		sfx_slider:mousereleased(x, y, m)
+		reset_score:mousereleased(x, y, m)
 	end
 
 	return self

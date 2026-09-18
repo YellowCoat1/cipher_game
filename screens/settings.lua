@@ -156,12 +156,11 @@ function settings.new()
 		button_press_audio:play()
 	end
 	function reset_score.trigger2()
-		
 		reset_audio:play()
-		--highscore_fs.set(0)
-		--Settings.high_score = 0
-		--highscore_fs.set_spike(0)
-		--Settings.high_score_spikes = 0
+		highscore_fs.set(0)
+		Settings.high_score = 0
+		highscore_fs.set_spike(0)
+		Settings.high_score_spikes = 0
 	end
 
 	self:exit_button_calc()

@@ -182,7 +182,7 @@ function node_procedural.genNext(node_list)
 	for x_val,node_index in pairs(selected_x_vals) do
 		local pattern_len_callback = node_procedural.pattern_len_callback  or function(_) return 3 end
 		local pattern_len = pattern_len_callback(node_list)
-		node_list.nodes[node_index+node_list_len] = node(tonumber(x_val), latest_y-300, pattern_len, chosen_spikes[node_index])
+		node_list.nodes[node_index+node_list_len] = node(tonumber(x_val), latest_y-300, pattern_len, chosen_spikes[node_index] or Settings.spikeys)
 	end
 
 

@@ -64,6 +64,7 @@ function game.new()
 		cam:attach()
 		node_list:draw()
 		cam:detach()
+		sea.ylevel = love.graphics.getHeight()/2
 		sea:draw(300-cam.y-sea_increment)
 		local width = love.graphics.getWidth()
 

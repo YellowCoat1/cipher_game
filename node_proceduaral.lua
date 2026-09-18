@@ -150,17 +150,39 @@ function node_procedural.genNext(node_list)
 
 	end
 
+	-- find which ones should be spikes
+	local target
+	if -latest_y < 900 then
+		target = 0.5
+	elseif -latest_y < 3900 then
+		target = 1
+	else
+		target = 2
+	end
+
+	local bonus = num_next / 4
+	local total_spikes = math.max(0, math.floor(love.math.randomNormal(1, target)*bonus)) -- normal distrobution of spikes
+	local chosen_spikes = {}
+	local unchosen_spikes = {}
+	for i=1,num_next do
+		table.insert(unchosen_spikes, i)
+	end
+	for _=1, total_spikes do
+		if #unchosen_spikes > 0 then
+			local to_pop = math.random(1, #unchosen_spikes)
+			local index = table.remove(unchosen_spikes, to_pop)
+			chosen_spikes[index] = true
+		end
+	end
 
 	-- make a new list sorted by node index
 	--
 	-- add new nodes
 	local node_list_len = #node_list.nodes
 	for x_val,node_index in pairs(selected_x_vals) do
-		local spike_callback = node_procedural.spike_callback or function(_) return false end
-		local spike = spike_callback(node_list)
 		local pattern_len_callback = node_procedural.pattern_len_callback  or function(_) return 3 end
 		local pattern_len = pattern_len_callback(node_list)
-		node_list.nodes[node_index+node_list_len] = node(tonumber(x_val), latest_y-300, pattern_len, spike)
+		node_list.nodes[node_index+node_list_len] = node(tonumber(x_val), latest_y-300, pattern_len, chosen_spikes[node_index])
 	end
 
 

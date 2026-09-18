@@ -51,26 +51,6 @@ function game.new()
 
 		return 2+math.floor(active_y/1500)
 	end
-
-	local function node_spike(node_list_t)
-		if not node_list_t.active_node then return false end
-		if Settings.spikeys then return true end
-		local active_y = -node_list_t.nodes[node_list.active_node].y
-
-		local cap = 0.90
-		if active_y > 900 then
-			cap = cap - 0.1
-		end
-		if active_y > 2100 then
-			cap = cap - 0.05
-		end
-		if active_y > 3600 then
-			cap = cap - 0.1
-		end
-		return love.math.random() > cap
-	end
-
-	node_procedural.spike_callback = node_spike
 	node_procedural.pattern_len_callback = node_pattern_len
 
 	node_list.jumpCallback = function(node_list_arg)

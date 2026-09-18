@@ -6,3 +6,5 @@ love_files = [
     "::git-ls-tree::",
     "-*/.*",
 ]
+
+love_version = "11.3"

@@ -23,7 +23,7 @@ function transition_out.new()
 		love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 	end
 
-	function self:keyreleased(key)
+	function self:keypressed(key)
 		if key == "p" then
 			ScreenManager.publish("transition_done", "skip")
 			transition_done = true

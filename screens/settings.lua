@@ -12,6 +12,8 @@ local line = love.graphics.line
 
 local font = love.graphics.newFont(FontName, 24)
 
+local button_press_audio
+local reset_audio
 function settings.new()
 	local self = screen:new()
 	local exit_button = button.new(1, 1, 1, 1)
@@ -23,6 +25,8 @@ function settings.new()
 	local reset_score = button.new(1, 1, 1, 1)
 	spikes_toggle.active = Settings.spikeys
 
+	button_press_audio = love.audio.newSource('assets/button_click.mp3', "static")
+	reset_audio = love.audio.newSource('assets/reset.wav', "static")
 	self.name = "settings"
 
 
@@ -115,6 +119,8 @@ function settings.new()
 	end
 
 	function reset_score.update(dt)
+		button_press_audio:setVolume((Settings.main_volume or 1) * (Settings.sfx_volume or 1))
+		reset_audio:setVolume((Settings.main_volume or 1) * (Settings.sfx_volume or 1))
 		if reset_score.pressed then
 			reset_score.timer = math.min((reset_score.timer or 0) + 0.4*dt, 1)
 		else
@@ -125,10 +131,9 @@ function settings.new()
 			reset_score.pressed = false
 			reset_score.timer = 0
 			reset_score.feedback_timer = 2
-			if reset_score.trigger then
+			if reset_score.trigger2 then
 				reset_score.trigger2()
 			end
-			print("trigger")
 		end
 
 		if reset_score.feedback_timer then
@@ -140,15 +145,19 @@ function settings.new()
 
 	function exit_button.trigger()
 		ScreenManager.publish("settings_exit")
+		button_press_audio:play()
 	end
 	function spikes_toggle.trigger()
 		spikes_toggle.active = not spikes_toggle.active
+		button_press_audio:play()
 	end
 	function skip_tutorial.trigger()
 		Settings.skip_tutorial = not Settings.skip_tutorial
+		button_press_audio:play()
 	end
 	function reset_score.trigger2()
-		print("trigger!")
+		
+		reset_audio:play()
 		--highscore_fs.set(0)
 		--Settings.high_score = 0
 		--highscore_fs.set_spike(0)

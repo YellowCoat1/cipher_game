@@ -131,6 +131,12 @@ function death.new()
 			button_pressed = false
 		end
 	end
+
+	function self:keyreleased(key)
+		if key == "p" then
+			death_timer = death_timer_max
+		end
+	end
 	return self
 end
 

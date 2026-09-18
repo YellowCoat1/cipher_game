@@ -24,6 +24,13 @@ function transition_in.new()
 		love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 	end
 
+	function self:keyreleased(key)
+		if key == "p" then
+			ScreenManager.publish("transition_in_done")
+			transition_done = true
+		end
+	end
+
 	return self
 end
 return transition_in

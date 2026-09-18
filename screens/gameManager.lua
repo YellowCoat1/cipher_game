@@ -6,7 +6,7 @@ function gameManager.new()
 
 	local self = Screen:new()
 
-	function self:receive(message)
+	function self:receive(message, field)
 		if message == "mainMenuStart" then
 			ScreenManager.pop()
 			if love.keyboard.isDown("p") or Settings.skip_tutorial then
@@ -23,7 +23,9 @@ function gameManager.new()
 			ScreenManager.pop()
 			ScreenManager.pop()
 			ScreenManager.push("game")
-			ScreenManager.push("transition_in")
+			if field ~= "skip" then
+				ScreenManager.push("transition_in")
+			end
 		elseif message == "transition_in_done" then
 			ScreenManager.pop()
 		elseif message == "died :(" then

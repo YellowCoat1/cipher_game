@@ -2,6 +2,10 @@
 
 ![Gameplay](./gameplay.gif)
 
+Tiny game made for a small youtuber, [cipher](https://www.youtube.com/@de_ciphercode404).
+
+Windows release can be found at [my google drive](https://drive.google.com/file/d/1fdpKIqjak9rFS5Waot0TcRsjSVSVjWGA/view?usp=sharing).
+
 <details>
 	<summary> Credits </summary>
   

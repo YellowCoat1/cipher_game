@@ -16,4 +16,6 @@ Windows release can be found at [my google drive](https://drive.google.com/file/
 	3. https://github.com/rm-code/screenmanager
 	4. https://love2d.org/wiki/HUMP
 	5. https://github.com/Miisan-png/Love-Dialogue
+	5. https://github.com/Miisan-png/Love-Dialogue
+	6. https://github.com/pfirsich/jprof
 </details>

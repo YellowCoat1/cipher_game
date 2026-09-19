@@ -1,4 +1,5 @@
 local exit = {}
+local prof = require 'libs.jprof'
 
 -- ranges from 0 to 1, 1 is exit
 exit.timer = 0
@@ -14,10 +15,13 @@ local triggered = false
 
 function exit.draw()
 	if triggered then return end
+	prof.push("exit draw")
+
 	love.graphics.setCanvas(canvas)
 	if exit.timer == 0 then
 		love.graphics.clear()
 		love.graphics.setCanvas()
+		prof.pop("exit draw")
 		return
 	end
 	love.graphics.setColor(0, 0, 0, 1)
@@ -33,11 +37,13 @@ function exit.draw()
 	love.graphics.setColor(1, 1, 1, 1)
 	love.graphics.draw(canvas, 0, 0)
 
+	prof.pop("exit draw")
 end
 
 function exit.update(dt)
 	local active_name = ScreenManager.peek().name
 	if active_name == "main menu" or active_name == "settings" then return end
+	prof.push("exit update")
 	if love.keyboard.isDown('escape') and not triggered then
 		exit.timer = exit.timer + (1/3)*dt
 	else
@@ -52,6 +58,7 @@ function exit.update(dt)
 		if GameMusic then GameMusic:stop() end
 		triggered = true
 	end
+	prof.pop("exit update")
 end
 
 return exit

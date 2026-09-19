@@ -1,4 +1,5 @@
 local Screen = require('screens.Screen')
+local prof = require('libs.jprof')
 local scrollingBackground = {}
 
 local sideLength = 20
@@ -43,18 +44,21 @@ function scrollingBackground.new()
 	self.yOffset = 0
 
 	function self:draw()
+		prof.push("hex grid draw")
 		love.graphics.push()
 		love.graphics.setColor(0.75, 0.75, 0.8, 1)
 		love.graphics.setLineWidth(1)
 		local width, height = love.graphics.getWidth(), love.graphics.getHeight()
 		drawHexGrid(width+5*sideLength+self.xOffset, self.yOffset-100, 5+width/(2*sideLength*cos60), 5+height/(2*sideLength*cos60))
 		love.graphics.pop()
+		prof.pop("hex grid draw")
 	end
 
 	local scrollSpeed = 15
 	local scrollX = sin60
 	local scrollY = cos60
 	function self:update(dt)
+		prof.push("hex grid calc")
 		self.xOffset = self.xOffset + dt*scrollX*scrollSpeed
 		self.yOffset = self.yOffset + dt*scrollY*scrollSpeed
 
@@ -62,6 +66,7 @@ function scrollingBackground.new()
 			self.xOffset = self.xOffset - 3*sideLength*sin60
 			self.yOffset = self.yOffset - 3*sideLength*cos60
 		end
+		prof.pop("hex grid calc")
 	end
 	return self
 end

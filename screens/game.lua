@@ -3,6 +3,7 @@ local node = require('node')
 local camera = require 'libs.camera'
 local sea_mod = require('sea')
 local node_procedural = require 'node_proceduaral'
+local prof = require 'libs.jprof'
 
 local function initial_nodes(node_list)
 	local node1 = node(0, 0, 2, Settings.spikeys)
@@ -98,13 +99,20 @@ function game.new()
 	end
 
 	function self:update(dt)
+		prof.push('main game')
 		node_list:update(dt)
 
 		if GameMusic then
 			GameMusic:setVolume((Settings.main_volume or 1)*(Settings.music_volume or 1))
 		end
-		if ScreenManager.peek().name ~= "game" then return end
-		if dead then return end
+		if ScreenManager.peek().name ~= "game" then
+			prof.pop('main game')
+			return
+		end
+		if dead then
+			prof.pop('main game')
+			return
+		end
 		sea:update(dt)
 		game_active_timer = game_active_timer + dt
 		local focused_node = node_list:get_focused_node()
@@ -116,7 +124,10 @@ function game.new()
 			cam:lockPosition(focused_node.x + x_offset, focused_node.y, damped)
 		end
 
-		if not focused_node then return end
+		if not focused_node then 
+			prof.pop('main game')
+			return
+		end
 
 		local sea_increment_change
 		if game_active_timer < 10 then
@@ -142,6 +153,7 @@ function game.new()
 			self:die()
 		end
 
+		prof.pop('main game')
 	end
 
 	function self:die()

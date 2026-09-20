@@ -181,7 +181,6 @@ function settings.new()
 		Settings.high_score_spikes = 0
 	end
 	function fullscreen.trigger()
-		print("AAAAA")
 		local fullscreened = love.window.getFullscreen()
 		love.window.setFullscreen(not fullscreened)
 		button_press_audio:play()

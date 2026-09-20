@@ -22,7 +22,6 @@ function death.new()
 	local button_pressed = false
 
 	local time = 0
-
 	local cipher_ded = love.graphics.newImage('assets/cipher_ded.png')
 	local cipher_width, cipher_height = cipher_ded:getWidth(), cipher_ded:getHeight()
 	local evil_glad = love.graphics.newImage('assets/evil_glad.png')
@@ -31,6 +30,8 @@ function death.new()
 	local death_sfx = love.audio.newSource('assets/die.wav', "static")
 	local restart_sfx = love.audio.newSource('assets/restart.wav', "static")
 	death_sfx:play()
+
+	love.mouse.setVisible(true)
 
 
 	GameMusic:setFilter({
@@ -133,6 +134,7 @@ function death.new()
 		local height = love.graphics.getHeight()
 		if button == 1 and y >= height*(3/7) and y <= height*(4/7) then
 			ScreenManager.publish("restart")
+			love.mouse.setVisible(false)
 			restart_sfx:play()
 			button_pressed = false
 		elseif button == 1 then

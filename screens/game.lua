@@ -38,6 +38,8 @@ function game.new()
 		GameMusic:play()
 	end
 
+
+	love.mouse.setVisible(false)
 	local node_list = require('node_list').new()
 	initial_nodes(node_list)
 	cam:lookAt(0, 0)
@@ -160,6 +162,11 @@ function game.new()
 	function self:keypressed(key)
 		node_list:keypressed(key)
 	end
+
+	function self:close()
+		love.mouse.setVisible(true)
+	end
+
 	return self
 end
 

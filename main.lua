@@ -41,7 +41,6 @@ function love.load()
 		transition_in = require('screens.transition_in'),
 		death = require('screens.death'),
 		lynx_note = require('screens.lynx_note'),
-		settings = require('screens.settings')
 	}
 
 	ScreenManager.init(screens, 'manager')

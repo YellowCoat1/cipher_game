@@ -1,5 +1,5 @@
 ScreenManager = require("libs.ScreenManager")
-local highscore = require 'highscore_fs'
+local fullscreen = require 'fullscreen'
 local exit = require 'exit'
 
 LynxNoteValid = true
@@ -20,6 +20,7 @@ FontName = "assets/hijo.regular.otf"
 Settings = {}
 
 function love.load()
+	fullscreen.init()
 
 	DialogueConfig = {
 		boxHeight = 200,
@@ -51,6 +52,7 @@ function love.load()
 end
 
 function love.draw()
+	fullscreen.draw()
 	DialogueConfig = {
 		boxHeight = 200,
 		boxWidth = math.max(love.graphics.getWidth()-300, 50),
@@ -71,6 +73,7 @@ function love.keyreleased(key)
 	ScreenManager.keyreleased(key)
 end
 function love.mousepressed(x, y, button)
+	fullscreen.mousepressed(x, y, button)
 	ScreenManager.mousepressed(x, y, button)
 end
 
@@ -79,6 +82,7 @@ function love.mousereleased(x, y, button)
 end
 function love.update(dt)
 	if dt > 1 then return end
+	fullscreen.calc()
 	ScreenManager.update(dt)
 	exit.update(dt)
 	--print(ScreenManager.peek().name)

@@ -52,7 +52,6 @@ function love.load()
 end
 
 function love.draw()
-	fullscreen.draw()
 	DialogueConfig = {
 		boxHeight = 200,
 		boxWidth = math.max(love.graphics.getWidth()-300, 50),
@@ -62,7 +61,7 @@ function love.draw()
 		borderWidth = 3
 	}
 	ScreenManager.draw()
-	exit.draw()
+	fullscreen.draw()
 end
 
 function love.keypressed(key)
@@ -88,6 +87,5 @@ function love.update(dt)
 	if dt > 1 then return end
 	fullscreen.calc()
 	ScreenManager.update(dt)
-	exit.update(dt)
 	--print(ScreenManager.peek().name)
 end

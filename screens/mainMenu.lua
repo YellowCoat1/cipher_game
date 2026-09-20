@@ -99,7 +99,7 @@ function MainScreen.new()
 
 	    if x > exit_button.x and x < exit_button.x + exit_button.width and
 		    y > exit_button.y and y < exit_button.y + exit_button.height and not self.fadeOut then
-		    prof.popAll()
+		    if prof.popAll then prof.popAll() end
 		    prof.write("profile_result.bin")
 		    love.event.quit(1)
 	    end

@@ -1,5 +1,6 @@
 local node_list = {}
 local colors = require 'colors'
+local prof = Profiler
 
 local coal_color = colors.coal_color
 local cipher_secondary_color = colors.cipher_secondary_color
@@ -10,6 +11,7 @@ function node_list.new()
 	self.nodes = {}
 	self.node_connections = {}
 	self.active_node = nil
+
 
 	local slide = love.audio.newSource('assets/slide.wav', 'static')
 
@@ -95,10 +97,13 @@ function node_list.new()
 	end
 
 	function self:update(dt)
+		prof.push("node_list")
 		slide:setVolume((Settings.main_volume or 1)*(Settings.sfx_volume or 1))
 		for _,single_node in ipairs(self.nodes) do
 			single_node:update(dt)
 		end
+
+		prof.pop("node_list")
 	end
 
 	function self:draw_node_connections(opacity)
@@ -200,7 +205,6 @@ function node_list.new()
 	end
 	
 	function self:close()
-
 	end
 
 

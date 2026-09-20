@@ -5,6 +5,7 @@ local arrow_png = love.graphics.newImage("assets/arrow.png")
 local arrow_width, arrow_height = arrow_png:getWidth(), arrow_png:getHeight()
 local spike_ring = love.graphics.newImage("assets/spike.png")
 local spike_width, spike_height = spike_ring:getWidth(), spike_ring:getHeight()
+local prof = Profiler
 
 local coal_color = colors.coal_color
 local cipher_main_color = colors.cipher_main_color
@@ -56,6 +57,7 @@ local function node(x, y, alen, spike)
 	end
 
 	function node:draw(opacity)
+		prof.push("indv_node draw")
 		opacity = opacity or 1
 		if not self:completed() then
 			love.graphics.setColor(coal_color[1], coal_color[2], coal_color[3], opacity)
@@ -92,9 +94,11 @@ local function node(x, y, alen, spike)
 		if not self:completed() then
 			love.graphics.draw(arrow_png, self.x+self.centerOffsetX, self.y+self.centerOffsetY, arrow_rotation, 0.1, 0.1, arrow_width/2, arrow_height/2)
 		end
+		prof.pop("indv_node draw")
 	end
 
 	function node:update(dt)
+		prof.push("indv_node update")
 
 		hit_sound:setVolume((Settings.main_volume or 1)*(Settings.sfx_volume or 1))
 		takeover_sound:setVolume((Settings.main_volume or 1)*(Settings.sfx_volume or 1))
@@ -118,6 +122,7 @@ local function node(x, y, alen, spike)
 		if self.completed_timer > 1 then
 			self.completed_timer = 1
 		end
+		prof.pop("indv_node update")
 	end
 
 	function node:keyreleased(key)

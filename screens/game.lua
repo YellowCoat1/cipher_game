@@ -3,7 +3,7 @@ local node = require('node')
 local camera = require 'libs.camera'
 local sea_mod = require('sea')
 local node_procedural = require 'node_proceduaral'
-local prof = require 'libs.jprof'
+local prof = Profiler
 
 local function initial_nodes(node_list)
 	local node1 = node(0, 0, 2, Settings.spikeys)

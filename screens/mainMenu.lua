@@ -1,5 +1,5 @@
 local Screen = require('screens.Screen')
-local prof = require('libs.jprof')
+local prof = Profiler
 
 local MainScreen = {}
 

@@ -1,6 +1,6 @@
 ScreenManager = require("libs.ScreenManager")
 PROF_CAPTURE = false
-local prof = require('libs.jprof')
+Profiler = require('libs.jprof')
 local highscore = require 'highscore_fs'
 local exit = require 'exit'
 
@@ -22,7 +22,7 @@ FontName = "assets/hijo.regular.otf"
 Settings = {}
 
 function love.load()
-	prof.connect(true)
+	Profiler.connect(true)
 	Settings.high_score = tonumber(highscore.get()) or Settings.high_score
 	Settings.high_score_spikes = tonumber(highscore.get_spike()) or Settings.high_score_spikes
 
@@ -67,7 +67,7 @@ function love.draw()
 	}
 	ScreenManager.draw()
 	exit.draw()
-	prof.pop("frame")
+	Profiler.pop("frame")
 end
 
 function love.keypressed(key)
@@ -85,7 +85,7 @@ function love.mousereleased(x, y, button)
 	ScreenManager.mousereleased(x, y, button)
 end
 function love.update(dt)
-	prof.push("frame")
+	Profiler.push("frame")
 	ScreenManager.update(dt)
 	exit.update(dt)
 	--print(ScreenManager.peek().name)

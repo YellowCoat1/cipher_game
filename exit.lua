@@ -1,5 +1,5 @@
 local exit = {}
-local prof = require 'libs.jprof'
+local prof = Profiler
 
 -- ranges from 0 to 1, 1 is exit
 exit.timer = 0

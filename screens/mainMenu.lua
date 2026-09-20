@@ -7,7 +7,7 @@ function MainScreen.new()
     self.name = "main menu"
     self.fadeOut = nil
     self.lynx_rotation = 0
-    local bg_music = love.audio.newSource("assets/roman_sol-bg_music.wav", "stream")
+    local bg_music = love.audio.newSource("assets/roman_sol-bg_music.wav", "static")
     bg_music:setLooping(true)
     bg_music:play()
 

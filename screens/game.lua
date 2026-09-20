@@ -32,7 +32,7 @@ function game.new()
 	local game_active_timer = 0
 	local font = love.graphics.newFont(FontName, 32)
 	if not GameMusic then
-		GameMusic = love.audio.newSource("assets/Serge Quadrado - Technocrat.mp3", "stream")
+		GameMusic = love.audio.newSource("assets/Serge Quadrado - Technocrat.mp3", "static")
 		GameMusic:play()
 	elseif GameMusic:isPlaying() == false then
 		GameMusic:play()

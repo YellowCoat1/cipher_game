@@ -78,6 +78,7 @@ function love.mousereleased(x, y, button)
 	ScreenManager.mousereleased(x, y, button)
 end
 function love.update(dt)
+	if dt > 3 then return end
 	ScreenManager.update(dt)
 	exit.update(dt)
 	--print(ScreenManager.peek().name)

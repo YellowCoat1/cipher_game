@@ -39,7 +39,6 @@ function game.new()
 	end
 
 
-	love.mouse.setVisible(false)
 	local node_list = require('node_list').new()
 	initial_nodes(node_list)
 	cam:lookAt(0, 0)

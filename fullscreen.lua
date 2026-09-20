@@ -25,7 +25,7 @@ end
 function fullscreen.mousepressed(mx, my, m)
 	if m == 1 and mx > x and mx < x + width and my > y and my < y + height then
 		local fullscreened = love.window.getFullscreen()
-		love.window.setFullscreen(not fullscreened)
+		love.window.setFullscreen(not fullscreened, "exclusive")
 	end
 end
 

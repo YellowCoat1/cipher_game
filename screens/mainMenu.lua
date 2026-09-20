@@ -43,7 +43,7 @@ function MainScreen.new()
 	love.graphics.rectangle("fill", play_button.x, play_button.y, play_button.width, play_button.height)
 	love.graphics.setColor(0.1, 0.1, 0.1, opacity)
 
-	love.graphics.print("play", font, play_button.x+play_button.width*(1/2)-font:getWidth("play")*(1/2), 20+play_button.y)
+	love.graphics.print("play", font, play_button.x+play_button.width*(1/2)-font:getWidth("play")*(1/2), play_button.y)
 	love.graphics.print("a lil cipher fanart game", font, width-600, height*(1/5), 0.5, 0.5)
 
 	love.graphics.setColor(1, 1, 1, 1)

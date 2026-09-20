@@ -76,7 +76,7 @@ function game.new()
 		if timer_string == "0" then
 			timer_string = "0.000"
 		end
-		love.graphics.print(timer_string, font, width-box_width+5, 10)
+		love.graphics.print(timer_string, font, width-box_width+5, 0)
 		love.graphics.setColor(0, 0, 1, 1)
 		love.graphics.line(width-box_width, 0, width-box_width, box_height)
 		love.graphics.line(width-box_width, box_height, width, box_height)

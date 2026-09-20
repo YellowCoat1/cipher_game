@@ -80,6 +80,7 @@ function settings.new()
 
 	function exit_button.draw()
 		love.graphics.setColor(0, 0, 0, 1)
+		love.graphics.setLineWidth(5)
 		love.graphics.rectangle("line", exit_button.x, exit_button.y, exit_button.width, exit_button.height)
 		line(exit_button.x + 10, exit_button.y + 10, exit_button.x+exit_button.width - 10, exit_button.y+exit_button.width - 10)
 		line(exit_button.x + exit_button.width - 10, exit_button.y+10, exit_button.x + 10, exit_button.y + exit_button.height - 10)

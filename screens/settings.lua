@@ -23,6 +23,7 @@ function settings.new()
 	local spikes_toggle = button.new(1, 1, 1, 1)
 	local skip_tutorial = button.new(1, 1, 1, 1)
 	local reset_score = button.new(1, 1, 1, 1)
+	local fullscreen = button.new(1, 1, 1, 1)
 	spikes_toggle.active = Settings.spikeys
 
 	button_press_audio = love.audio.newSource('assets/button_click.mp3', "static")
@@ -54,6 +55,12 @@ function settings.new()
 		reset_score.y = skip_tutorial.y + 80
 		reset_score.width = 250
 		reset_score.height = 40
+	end
+	function self:fullscreen_calc()
+		fullscreen.x = love.graphics.getWidth()/2
+		fullscreen.y = spikes_toggle.y
+		fullscreen.width = 40
+		fullscreen.height = 40
 	end
 	function self:sliders_calc()
 		local width, height = love.graphics.getDimensions()
@@ -99,6 +106,17 @@ function settings.new()
 			love.graphics.rectangle("fill", skip_tutorial.x, skip_tutorial.y, skip_tutorial.width, skip_tutorial.height)
 		end
 	end
+
+	function fullscreen.draw()
+		love.graphics.setColor(0, 0, 0, 1)
+		love.graphics.rectangle("line", fullscreen.x, fullscreen.y, fullscreen.width, fullscreen.height)
+		local fullscreened = love.window.getFullscreen()
+		if fullscreened then
+			love.graphics.setColor(0, 0, 0, 0.4)
+			love.graphics.rectangle("fill", fullscreen.x, fullscreen.y, fullscreen.width, fullscreen.height)
+		end
+	end
+
 
 	function reset_score.draw()
 		love.graphics.setColor(0, 0, 0, 1)
@@ -162,12 +180,19 @@ function settings.new()
 		highscore_fs.set_spike(0)
 		Settings.high_score_spikes = 0
 	end
+	function fullscreen.trigger()
+		print("AAAAA")
+		local fullscreened = love.window.getFullscreen()
+		love.window.setFullscreen(not fullscreened)
+		button_press_audio:play()
+	end
 
 	self:exit_button_calc()
 	self:sliders_calc()
 	self:spike_button_calc()
 	self:skip_tutorial_calc()
 	self:reset_score_calc()
+	self:fullscreen_calc()
 	love.graphics.setColor(0, 0, 0, 1)
 
 	function self:draw()
@@ -190,6 +215,7 @@ function settings.new()
 		sfx_slider:draw()
 		spikes_toggle.draw()
 		skip_tutorial.draw()
+		fullscreen:draw()
 		reset_score:draw()
 		local y_offset = (volume_slider.height-font:getHeight())*(1/2)
 		love.graphics.setColor(0, 0, 0, 1)
@@ -198,6 +224,7 @@ function settings.new()
 		love.graphics.print("SFX Volume", font, sfx_slider.x + sfx_slider.width + 20, sfx_slider.y+y_offset)
 		love.graphics.print("Spike Hell", font, spikes_toggle.x + spikes_toggle.width + 20, spikes_toggle.y+y_offset)
 		love.graphics.print("Skip Tutorial", font, skip_tutorial.x + skip_tutorial.width + 20, skip_tutorial.y+y_offset)
+		love.graphics.print("Fullscreen", font, fullscreen.x + fullscreen.width + 20, fullscreen.y+y_offset)
 	end
 
 	function self:update(dt)
@@ -210,6 +237,7 @@ function settings.new()
 		self:spike_button_calc()
 		self:skip_tutorial_calc()
 		self:reset_score_calc()
+		self:fullscreen_calc()
 
 		reset_score.update(dt)
 
@@ -231,6 +259,7 @@ function settings.new()
 		music_slider:mousepressed(x, y, m)
 		sfx_slider:mousepressed(x, y, m)
 		reset_score:mousepressed(x, y, m)
+		fullscreen:mousepressed(x, y, m)
 	end
 
 	function self:mousereleased(x, y, m)
@@ -241,6 +270,7 @@ function settings.new()
 		music_slider:mousereleased(x, y, m)
 		sfx_slider:mousereleased(x, y, m)
 		reset_score:mousereleased(x, y, m)
+		fullscreen:mousereleased(x, y, m)
 	end
 
 	return self

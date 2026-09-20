@@ -46,6 +46,10 @@ function scrollingBackground.new()
 		love.graphics.pop()
 	end
 
+	function self:resize()
+		canvas = love.graphics.newCanvas()
+	end
+
 	local scrollSpeed = 15
 	local scrollX = sin60
 	local scrollY = cos60

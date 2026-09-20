@@ -77,6 +77,10 @@ function love.mousepressed(x, y, button)
 	ScreenManager.mousepressed(x, y, button)
 end
 
+function love.resize(w, h)
+	ScreenManager.resize(w, h)
+end
+
 function love.mousereleased(x, y, button)
 	ScreenManager.mousereleased(x, y, button)
 end

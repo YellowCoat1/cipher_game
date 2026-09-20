@@ -215,6 +215,10 @@ function tutorial.new()
 		new_set_opacity_timer = 0
 	end
 
+	function self:close()
+		node_list:close()
+	end
+
 
 	return self
 end

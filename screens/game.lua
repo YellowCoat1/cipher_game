@@ -172,6 +172,10 @@ function game.new()
 	function self:keypressed(key)
 		node_list:keypressed(key)
 	end
+
+	function self:close()
+		node_list:close()
+	end
 	return self
 end
 

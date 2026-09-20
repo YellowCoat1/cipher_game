@@ -5,6 +5,7 @@ local coal_color = colors.coal_color
 local cipher_secondary_color = colors.cipher_secondary_color
 
 function node_list.new()
+
 	local self = {}
 	self.nodes = {}
 	self.node_connections = {}
@@ -195,6 +196,10 @@ function node_list.new()
 	end
 
 	function self:jumpCallback() -- function stub
+
+	end
+	
+	function self:close()
 
 	end
 

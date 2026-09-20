@@ -79,21 +79,21 @@ function death.new()
 		if death_timer == death_timer_max then
 			-- top text
 			love.graphics.setColor(cipher_main_color)
-			love.graphics.print("Flooded!", font, (width/2) - (font:getWidth("Flooded!")/2), height/5)
+			love.graphics.print("Flooded!", font, (width/2) - (font:getWidth("Flooded!")/2), height/20)
 			love.graphics.setColor(cipher_secondary_color)
 			SurvivedTime = round_hundreth(SurvivedTime or 0)
-			love.graphics.print("Score: "..SurvivedTime, smaller_font, (width/2)-smaller_font:getWidth("Score: "..SurvivedTime)/2, height/5+height/10)
+			love.graphics.print("Score: "..SurvivedTime, smaller_font, (width/2)-smaller_font:getWidth("Score: "..SurvivedTime)/2, -60 + height/5+height/10)
 			local hs_text
 			if Settings.spikeys then
 				hs_text = Settings.high_score_spikes
 			else
 				hs_text = Settings.high_score
 			end
-			love.graphics.print("Highscore: "..round_hundreth(hs_text), smaller_font, (width/2)-smaller_font:getWidth("Highscore: "..round_hundreth(Settings.high_score))/2, height/5+height/10 + smaller_font:getHeight() + 10)
+			love.graphics.print("Highscore: "..round_hundreth(hs_text), smaller_font, (width/2)-smaller_font:getWidth("Highscore: "..round_hundreth(Settings.high_score))/2, height/5+height/10 + smaller_font:getHeight() - 50)
 			-- high score
-			if high_score then
-				love.graphics.print("High Score!", smaller_font, width*(9/11), height*(1/5), math.sin(time*5)*0.4, 1+math.cos(time*5)*(1/4), _, smaller_font:getWidth("High Score!")/2, smaller_font:getHeight()/2)
-			end
+			--if high_score then
+			--	love.graphics.print("High Score!", smaller_font, width*(9/11), height*(1/5), math.sin(time*5)*0.4, 1+math.cos(time*5)*(1/4), _, smaller_font:getWidth("High Score!")/2, smaller_font:getHeight()/2)
+			--end
 			-- middle button
 			love.graphics.setColor(0, 0, 0, 0.3)
 			if button_pressed then

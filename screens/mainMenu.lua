@@ -21,8 +21,8 @@ function MainScreen.new()
     function self:calc_buttons()
     	local width, height = love.graphics.getDimensions()
 	play_button = {
-    		x = 1*width/5,
-   	 	y = 2*height/5,
+    		x = 1*width/9,
+   	 	y = 3*height/5,
    	 	width = 400,
    	 	height = 100
    	 }
@@ -44,7 +44,7 @@ function MainScreen.new()
 	love.graphics.setColor(0.1, 0.1, 0.1, opacity)
 
 	love.graphics.print("play", font, play_button.x+play_button.width*(1/2)-font:getWidth("play")*(1/2), play_button.y)
-	love.graphics.print("a lil cipher fanart game", font, width-600, height*(1/5), 0.5, 0.5)
+	love.graphics.print("a lil cipher fanart game", font, width-600, height*(1/5), 0.4, 0.5)
 
 	love.graphics.setColor(1, 1, 1, 1)
 	love.graphics.draw(lynx, love.graphics.getWidth()-100, love.graphics.getHeight()-100, self.lynx_rotation, 0.5, 0.5, lynx_width/2, lynx_height/2)

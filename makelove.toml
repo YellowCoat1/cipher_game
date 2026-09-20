@@ -1,5 +1,5 @@
-name = "cipher game"
-default_targets = ["win32", "win64", "appimage"]
+name = "cipher game web"
+default_targets = []
 build_directory = "makelove-build"
 
 love_files = [
